@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+@import 'normalize';
+@import 'theme';
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1, h2, h3 {
+  font-family: $title-fontname;
+  font-weight: 400;
+}
+
+/* Helper Classes */
+
+.flex-vertical-container {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  height         : 100vh;
+}
+
+.flex-horizontal-container {
+  display        : flex;
+  justify-content: center;
+  width          : 100vw;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.light-text {
+  color: $light-color;
+}
+
+.dark-text {
+  color: $dark-color;
+}
+
+/* Title Screen */
+
+h1.logo {
+  margin-top : 0;
+  font-size  : 20vmin;
+  text-shadow: 3px 3px $median-color;
+}
+
+h2.loading {
+  margin-top: 0;
+  font-size : 5vmin;
+}
+
+div.progressbar {
+
+  width : 50vw;
+  height: 5vh;
+  border: 1px solid $light-color;
+  > span {
+    display         : block;
+    height          : 100%;
+    background-color: $progress-color;
+  }
+
+}
+
+.titlescreen {
+
+  display : block;
+  position: absolute;
+  top     : 0;
+  left    : 0;
+  right   : 0;
+  bottom  : 0;
+  width   : 100%;
+  height  : 100%;
+  z-index : -1;
+
+  &__background {
+    background: black url(/img/background-stars.png) repeat top center;
+  }
+
+  &__overlay {
+    @keyframes move-to-right {
+      from { background-position: 0 0; }
+      to   { background-position: -10000px 5000px; }
+    }
+    background: transparent url(/img/stars-overlay.png) repeat top center;
+    animation : move-to-right 200s linear infinite;
+  }
+
+}
+
+/* Forms */
+
+input, button {
+  margin-left  : 5px;
+  margin-right : 5px;
+  border       : 1px solid $median-color;
+  border-radius: 3px;
+  background   : $light-color;
+  color        : $dark-color;
+  font         : $base-fontsize $base-fontname;
+}
+
+input {
+  padding         : 5px 5px 4px 5px;
+  text-shadow     : 0 1px 0 $light-color;
+  background-color: $light-color;
+}
+
+button {
+  padding    : 4px 15px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 $light-color;
+  &:hover, &:active {
+    color     : $dark-color;
+    background: $median-color;
+  }
+}

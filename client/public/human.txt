@@ -1,0 +1,9 @@
+/* TEAM */
+
+/* THANKS */
+    Creator: HotChiwawa
+    Github: https://github.com/nyanofthemoon/Celestials
+    Website: https://celestials.hotchiwawa.com
+    From:Montreal, QC, Canada
+
+/* SITE */

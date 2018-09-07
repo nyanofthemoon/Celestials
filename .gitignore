@@ -1,2 +1,5 @@
-.npm-debug.log
+node_modules
+.sass-cache
+client/public/js/*
+dump.rdb
 node_modules

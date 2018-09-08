@@ -5,7 +5,7 @@ let verbose  = false;
 
 if (['localhost', '127.0.0.1'].indexOf(host) > -1) {
     name     = 'development';
-    port     = ':8888';
+    port     = ':8000';
     verbose  = true;
 }
 
@@ -17,8 +17,8 @@ export default {
         isDevelopment: function() {
             return 'development' === name
         },
-        isVerboce: function() {
+        isVerbose: function() {
             return true === verbose
-	}
+	    }
     }
 };

@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader'
 import React, {Component, PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -35,11 +36,6 @@ class App extends Component {
     }
 }
 
-App.propTypes = {
-    engine: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-}
-
 function mapStateToProps(state) {
     return {
         engine: state.engine
@@ -49,12 +45,15 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
-            assetLoaderCompletion
+            assetLoaderCompletion,
+            noop
         }, dispatch)
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(App);
+
+export default hot(module)(ConnectedApp);

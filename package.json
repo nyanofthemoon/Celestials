@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "npm run dist",
-    "server": "nodemon --watch server server/main.js",
-    "workers": "nodemon --watch server server/workers/main.js",
-    "webpack-dev-server": "webpack-dev-server --hot",
-    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run server' 'npm run workers'",
-    "dist": "webpack --config configs/webpack.dist.config.js",
-    "start": "parallelshell 'pm2 start server/main.js' 'pm2 start server/workers/main.js'"
+    "development-webserver": "nodemon --watch server server/main.js",
+    "development-services": "nodemon --watch server server/services/main.js",
+    "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
+    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run development-webserver' 'npm run development-services'",
+    "production-webserver": "pm2 start server/main.js",
+    "production-services": "pm2 start server/services/main.js",
+    "dist": "webpack --config webpack.prod.config.js",
+    "start": "parallelshell 'npm run production-webserver' 'npm run production-services'"
   },
   "repository": {
     "type": "git",
@@ -24,13 +25,11 @@
   },
   "homepage": "https://celestials.hotchiwawa.com",
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.1.5",
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
@@ -39,10 +38,10 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "chalk": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",

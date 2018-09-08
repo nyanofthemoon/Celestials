@@ -3,3 +3,4 @@ node_modules
 client/public/js/*
 dump.rdb
 node_modules
+.idea

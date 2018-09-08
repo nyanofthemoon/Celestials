@@ -1,11 +1,11 @@
-
 'use strict';
 
-let RedisClient  = require('./../db/redis-client');
-let Cycling      = require('./cycling');
+//let RedisClient  = require('./../db/redis-client');
+//let Cycling      = require('./cycling');
 
-const CONFIG = require('./../config');
+//const CONFIG = require('./../config');
 
+/*
 new RedisClient(CONFIG).initialize()
     .then(function(client) {
 
@@ -13,3 +13,4 @@ new RedisClient(CONFIG).initialize()
         new Cycling(CONFIG, client).start();
 
     });
+*/

@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react'
-import Config from './../config';
+import Config from './../../config';
 
-class ConnectionForm extends Component {
+class LoginForm extends Component {
     _handleFormSubmit(e) {
         e.preventDefault();
         var username = this.refs.username.value;
         var password = this.refs.password.value;
         if (username.length >= 1 && password.length >= 1) {
-            this.props.handleSubmit(username, password, this.context.store);
+            this.props.handleSubmit(username, password);
         }
     }
     componentDidMount() {
@@ -32,10 +32,6 @@ class ConnectionForm extends Component {
             </form>
         );
     }
-}
-
-ConnectionForm.contextTypes = {
-    store: React.PropTypes.object.isRequired
 }
 
 export default LoginForm;

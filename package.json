@@ -8,7 +8,7 @@
     "development-webserver": "nodemon --watch server server/main.js",
     "development-services": "nodemon --watch server server/services/main.js",
     "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
-    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run development-webserver' 'npm run development-services'",
+    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run development-services'",
     "production-webserver": "pm2 start server/main.js",
     "production-services": "pm2 start server/services/main.js",
     "dist": "webpack --config webpack.prod.config.js",
@@ -43,6 +43,7 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
+    "@material-ui/core": "^3.0.2",
     "chalk": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",

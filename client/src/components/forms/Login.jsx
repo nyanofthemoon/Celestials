@@ -1,5 +1,9 @@
 import React, {Component, PropTypes} from 'react'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 import Config from './../../config';
+
 
 class LoginForm extends Component {
     _handleFormSubmit(e) {
@@ -12,7 +16,6 @@ class LoginForm extends Component {
     }
     componentDidMount() {
         if (Config.environment.isDevelopment()) {
-            let timestamp            = new Date().getTime()
             this.refs.username.value = 'guest'
             this.refs.password.value = 'guest123'
         }
@@ -20,15 +23,31 @@ class LoginForm extends Component {
     render() {
         return (
             <form className="flex-horizontal-container" action="" onSubmit={this._handleFormSubmit.bind(this)}>
-                <div>
-                    <input type="text" ref="username" placeholder="username"/>
-                </div>
-                <div>
-                    <input type="password" ref="password" placeholder="password"/>
-                </div>
-                <div>
-                    <button type="submit">Play</button>
-                </div>
+                <TextField
+                    id="email"
+                    label="Email"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    placeholder="username"
+                    helperText="you@mail.net"
+                    ref="username"
+                    fullWidth
+                    margin="normal"
+                />
+                <TextField
+                    id="password"
+                    label="Password"
+                    type="password"
+                    placeholder="password"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    ref="password"
+                    fullWidth
+                    margin="normal"
+                />
+                <Button type="submit" variant="contained" color="primary">Play</Button>
             </form>
         );
     }

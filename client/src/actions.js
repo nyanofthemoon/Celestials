@@ -9,7 +9,9 @@ function _getState() {
     return Store.getState();
 }
 
-export function noop() {}
+export function noop() {
+    return {type: types.NOOP}
+}
 
 export function assetLoaderCompletion(musics, sounds) {
     if (Config.environment.isVerbose()) { console.log('[Action   ] Run ' + types.ASSET_LOADER_COMPLETION); }

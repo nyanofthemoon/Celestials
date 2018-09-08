@@ -6,7 +6,7 @@ console.log(path.resolve(__dirname, 'client/public/js'));
 module.exports = {
   mode: 'development',
   entry: [
-    'webpack-dev-server/client?http://localhost:8000',
+    'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     __dirname + '/client/src/index.jsx'
   ],
@@ -39,6 +39,10 @@ module.exports = {
         overlay: {
           warnings: true,
           errors: true
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
         }
   },
   resolve: {
@@ -52,36 +56,3 @@ module.exports = {
       })
   ]
 };
-
-
-/*
-module.exports = {
-    entry: __dirname + '/client/src/index.jsx',
-    module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel'
-        },{
-            test: /\.scss?$/,
-            exclude: /node_modules/,
-            loader: 'style!css!postcss!sass'
-        }]
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
-    output: {
-        path: 'client/public/js',
-        filename: 'app-bundle.js'
-    },
-    devtool: 'source-map',
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development')
-            }
-        })
-    ]
-};
-*/

@@ -5,14 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "development-webserver": "nodemon --watch server server/main.js",
-    "development-services": "nodemon --watch server server/services/main.js",
     "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
-    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run development-services'",
-    "production-webserver": "pm2 start server/main.js",
-    "production-services": "pm2 start server/services/main.js",
+    "start-mock-services": "nodemon --watch server server/launcher.js",
+    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run start-mock-services'",
     "dist": "webpack --config webpack.prod.config.js",
-    "start": "parallelshell 'npm run production-webserver' 'npm run production-services'"
+    "start-service-webserver": "node --harmony server/launcher.js --service webserver --nomock",
+    "start-service-account": "node --harmony server/launcher.js --service account --nomock"
   },
   "repository": {
     "type": "git",
@@ -32,6 +30,8 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
+    "faker": "^4.1.0",
+    "json-server": "^0.14.0",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
     "postcss-loader": "^3.0.0",
@@ -47,14 +47,16 @@
     "chalk": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",
+    "hazelcast-client": "^0.9.0",
     "immutable": "^3.8.2",
-    "parallelshell": "^3.0.2",
+    "material-ui-image": "^3.0.0",
     "pm2": "^3.0.4",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-redux": "^5.0.7",
     "redis": "^2.8.0",
     "redux": "^4.0.0",
-    "sanitizer": "^0.1.3"
+    "sanitizer": "^0.1.3",
+    "yargs": "^12.0.2"
   }
 }

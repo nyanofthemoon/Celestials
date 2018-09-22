@@ -33,3 +33,14 @@ class RedisClient {
 };
 
 module.exports = RedisClient;
+
+/*
+let PubSubClient  = require('./../db/redis-client');
+new RedisClient(CONFIG).initialize()
+    .then(function(client) {
+
+        // Day & Night Cycles
+        new Cycling(CONFIG, client).start();
+
+    });
+*/

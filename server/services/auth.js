@@ -1,8 +1,8 @@
 'use strict'
 
 module.exports = {
-    name: 'Account',
+    name: 'Auth',
     mock: false,
-    start: () => { console.log('HI START') }, // eslint-disable-line no-console
+    start: false => { console.log('HI START') }, // eslint-disable-line no-console
     stop: () => { console.log('HI STOP') }, // eslint-disable-line no-console
 }

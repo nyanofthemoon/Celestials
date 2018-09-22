@@ -96,10 +96,7 @@ class World {
         });
     }
 
-    getPlayerBySocketId(id) {
-        return this.data.players[this.data.sessions[id]];
-    }
-
+    /*
     bindSocketToModuleEvents(socket) {
         var that = this;
         try {
@@ -116,6 +113,11 @@ class World {
         } catch (e) {
             this.logger.error('An unknown socket error has occured', e);
         }
+    }
+    */
+
+    getPlayerBySocketId(id) {
+        return this.data.players[this.data.sessions[id]];
     }
 
     query(data, socket) {

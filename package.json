@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint --fix ./server ./client",
     "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
     "start-mock-services": "nodemon --watch server server/launcher.js",
-    "dev": "parallelshell 'npm run webpack-dev-server' 'npm run start-mock-services'",
+    "dev": "npm run webpack-dev-server & npm run start-mock-services",
     "dist": "webpack --config webpack.prod.config.js",
     "start-service-webserver": "node --harmony server/launcher.js --service webserver --nomock",
     "start-service-account": "node --harmony server/launcher.js --service account --nomock"
@@ -30,6 +31,9 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
+    "eslint": "^5.6.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "faker": "^4.1.0",
     "json-server": "^0.14.0",
     "node-sass": "^4.9.3",

@@ -1,22 +1,34 @@
-'use strict';
+'use strict'
 
-let Logger = require('./logger');
-const CONFIG = require('./config');
+let Logger = require('./logger')
+const CONFIG = require('./config')
 
-const logger  = new Logger('LAUNCHER', CONFIG);
+const logger  = new Logger('LAUNCHER', CONFIG)
 
-const args = require('yargs').argv;
+const args = require('yargs').argv
 
 const serviceName = args.service || 'all'
 const serviceIsMock = args.nomock ?  false : true
 
-logger.info(`Loading service ${serviceName}`)
-
 try {
-  const service = (serviceIsMock ? require(`./services/mock/${serviceName}`) : require(`./services/${serviceName}`))
-  service.start()
+    let serviceIds = [];
+    if (serviceName != 'all') {
+      serviceIds.push(serviceName)
+    } else {
+      serviceIds.push('webserver')
+      serviceIds.push('auth')
+      serviceIds.push('account')
+    }
+
+    for (let id in serviceIds) {
+      let serviceId = serviceIds[id]
+      logger.info(`Initializing ${serviceId}...`)
+      const service = (serviceIsMock ? require(`./services/mock/${serviceId}`) : require(`./services/${serviceId}`))
+      service.start()
+    }
+
 } catch (e) {
-  logger.error(`Service not loaded ${e}`)
+    logger.error(`Service not loaded ${e}`)
 }
 
 // node server/launcher.js -> will load all services as mock

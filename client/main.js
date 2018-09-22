@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-const CONFIG = require('./config');
+const CONFIG = require('./config')
 
-let express = require('express');
+let express = require('express')
 
-let logger = new (require('./../server/logger'))('SERVER [WEB]', CONFIG);
+let logger = new (require('./../server/logger'))('SERVER [WEB]', CONFIG)
 
 let options = {
     dotfiles  : 'ignore',
@@ -14,19 +14,19 @@ let options = {
     maxAge    : '1d',
     redirect  : true,
     setHeaders: function (res, path, stat) {
-        res.set('x-timestamp', Date.now());
+        res.set('x-timestamp', Date.now())
     }
-};
+}
 
-let app = express();
+let app = express()
 
-app.use(express.static('client/public', options));
+app.use(express.static('client/public', options))
 
 app.get('/*', function(req, res) {
-    res.sendFile(__dirname + '/public/not-found.html');
-});
+    res.sendFile(__dirname + '/public/not-found.html')
+})
 
 module.exports = {
     webserver: app,
     logger: logger
-};
+}

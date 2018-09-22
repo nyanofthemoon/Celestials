@@ -6,19 +6,18 @@ const CONFIG = require('./../config')
 
 const webserver = require('http').createServer(app.webserver)
 
-function start() {
-    webserver.listen(CONFIG.environment.port, function () {
-        app.logger.success('Listening on port ' + CONFIG.environment.port)
-    })
-}
-
-function stop() {
-    webserver.stop()
-}
-
 module.exports = {
     name: 'Webserver',
     mock: false,
-    start,
-    stop
+    start: () => {
+      const port = CONFIG.service.webserver.port
+      webserver.listen(port, function () {
+          app.logger.success(`Listening on port ${port}`)
+      })
+    },
+    stop: () => {
+      server.close(() => {
+        logger.warning(`Stopped listening`)
+      })
+    }
 }

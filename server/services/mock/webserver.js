@@ -1,8 +1,29 @@
 'use strict'
 
+const restify = require('restify');
+const Logger = require('./../../logger')
+
+const CONFIG = require('./../../config')
+const logger  = new Logger('SERVICE Webserver', CONFIG)
+
+const server = restify.createServer();
+server.get('/*', (req, res, next) => {
+  res.send('OK')
+  next()
+});
+
 module.exports = {
-    name: 'Webserver Mock',
+    name: 'Webserver (Mock)',
     mock: true,
-    start: () => { console.log('HI START') }, // eslint-disable-line no-console
-    stop: () => { console.log('HI STOP') }, // eslint-disable-line no-console
+    start: () => {
+      const port = CONFIG.service.webserver.port
+      server.listen(port, () => {
+        logger.success(`Listening on port ${port}`)
+      });
+    },
+    stop: () => {
+      server.close(() => {
+        logger.warning(`Stopped listening`)
+      })
+    },
 }

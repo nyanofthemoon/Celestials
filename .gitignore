@@ -1,6 +1,5 @@
-node_modules
+.idea
 .sass-cache
 client/public/js/*
 dump.rdb
 node_modules
-.idea

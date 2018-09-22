@@ -4,7 +4,7 @@ const CONFIG = require('./config')
 
 let express = require('express')
 
-let logger = new (require('./../server/logger'))('SERVER [WEB]', CONFIG)
+let logger = new (require('./../server/logger'))('SERVICE Webserver', CONFIG)
 
 let options = {
     dotfiles  : 'ignore',

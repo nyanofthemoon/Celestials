@@ -4,12 +4,6 @@ import Button from '@material-ui/core/Button';
 import TemporaryDrawer from '../../components/TemporaryDrawer'
 
 
-
-
-
-
-
-
 class HomeScreen extends Component {
     constructor() {
         super()

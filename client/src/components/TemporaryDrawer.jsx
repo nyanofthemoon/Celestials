@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react'
+import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
 

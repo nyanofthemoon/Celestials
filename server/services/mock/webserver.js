@@ -4,7 +4,7 @@ const restify = require('restify');
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
-const logger  = new Logger('SERVICE Webserver', CONFIG)
+const logger  = new Logger('SERVICE Webserver (Mock)', CONFIG)
 
 const server = restify.createServer();
 server.get('/*', (req, res, next) => {

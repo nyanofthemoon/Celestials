@@ -6,7 +6,7 @@ console.log(path.resolve(__dirname, 'client/public/js'));
 module.exports = {
   mode: 'development',
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8000',
     'webpack/hot/only-dev-server',
     __dirname + '/client/src/index.jsx'
   ],
@@ -17,12 +17,12 @@ module.exports = {
   },
   module: {
       rules: [
-        {
-          enforce: 'pre',
-          test: /\.(js|jsx)?$/,
-          exclude: /node_modules/,
-          use: ['eslint-loader']
-        },
+        //{
+        //  enforce: 'pre',
+        //  test: /\.(js|jsx)?$/,
+        //  exclude: /node_modules/,
+        //  use: ['eslint-loader']
+        //},
         { test: /\.(js|jsx)?$/,
           exclude: /node_modules/,
           use: ['babel-loader']
@@ -36,6 +36,7 @@ module.exports = {
   },
   devtool: 'cheap-eval-sourcemaps',
   devServer: {
+        port: 8000,
         contentBase: 'client/public',
         watchContentBase: true,
         progress: true,

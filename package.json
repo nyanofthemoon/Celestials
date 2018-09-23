@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix ./server ./client",
-    "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
+    "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline --open --history-api-fallback --compress --no-info --https --public",
     "mock-services": "nodemon --watch server server/launcher.js",
-    "dev": "npm run webpack-dev-server & npm run mock-services",
+    "dev": "npm run webpack-dev-server & NODE_ENV=development npm run mock-services",
     "dist": "webpack --config webpack.prod.config.js",
     "service-webserver": "node --harmony server/launcher.js --service webserver --nomock",
     "service-auth": "node --harmony server/launcher.js --service auth --nomock",

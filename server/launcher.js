@@ -15,7 +15,10 @@ try {
     if (serviceName != 'all') {
       serviceIds.push(serviceName)
     } else {
-      serviceIds.push('webserver')
+      if (!CONFIG.environment.isDev()) {
+        console.log('sdadasdsa')
+        serviceIds.push('webserver')
+      }
       serviceIds.push('auth')
       serviceIds.push('account')
     }

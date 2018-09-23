@@ -6,7 +6,7 @@ const jsonServer = require('json-server')
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
-const logger = new Logger('SERVICE Account', CONFIG)
+const logger = new Logger('SERVICE Account (Mock)', CONFIG)
 
 const server = jsonServer.create()
 const router = jsonServer.router(path.join(__dirname, 'schema/account.json'))

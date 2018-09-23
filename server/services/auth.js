@@ -11,6 +11,10 @@ server.get('/*', (req, res, next) => {
   res.send('Hello from auth service')
   next()
 });
+server.post('/api/auth', (req, res, next) => {
+  res.send('@TODO')
+  next()
+});
 
 module.exports = {
     name: 'Auth',

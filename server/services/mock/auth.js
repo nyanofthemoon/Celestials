@@ -6,7 +6,7 @@ const errors = require('restify-errors');
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
-const logger = new Logger('SERVICE Auth', CONFIG)
+const logger = new Logger('SERVICE Auth (Mock)', CONFIG)
 
 const server = restify.createServer();
 server.get('/*', (req, res, next) => {

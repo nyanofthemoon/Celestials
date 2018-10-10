@@ -52,7 +52,7 @@ class HomeScreen extends Component {
 
                 <img src="http://fpoimg.com/300x300?text=Celestials Logo" />
                 <br />
-                <Button variant="contained" onClick={this.openJoinFormDialog}>join</Button>
+                <Button variant="contained" color="secondary" onClick={this.openJoinFormDialog}>join</Button>
                 <span>or</span>
                 <Button variant="contained" color="primary" onClick={this.openPlayFormDialog}>play</Button>
 

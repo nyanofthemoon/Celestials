@@ -53,7 +53,9 @@ module.exports = {
         }
   },
   resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx'],
+      alias: {
+          joi: 'joi-browser' }
   },
   plugins: [
       new webpack.DefinePlugin({

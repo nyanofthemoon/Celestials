@@ -1,13 +1,12 @@
 import React, {Component, PropTypes} from 'react'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { Typography } from '@material-ui/core'
+import { Typography, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle }  from '@material-ui/core';
+import Joi from 'joi';
 
 import Config from './../../config';
+import Validation from '../../../../server/validation';
+
+// const Joi = require('joi-browser');
+
 
 
 class JoinFormDialog extends Component {
@@ -21,7 +20,9 @@ class JoinFormDialog extends Component {
         email: '',
         password: '',
         usernameHasErrors: false,
-        passwordHasErrors: false
+        passwordHasErrors: false,
+        emailText: '',
+        passwordText: ''
     };
 
     handleChange = (that, name) => event => {
@@ -32,37 +33,50 @@ class JoinFormDialog extends Component {
         console.log(that.refs.username)
 
 
-
     };
 
 
     _handleFormSubmit(e) {
         //e.preventDefault();
-
+        let isError = false;
         let username = this.state.email;
         let password = this.state.password;
-        console.log(this.state.email);
 
-        if (username.length >= 1 && password.length >= 1) {
-            this.props.handleSubmit(username, password, 'join');
-        } else {
-            // put form in error
+        // validate username // email
+        let result = Joi.validate(username, Validation.validate.auth.schema.body.email);
+
+        if (result.error) {
+            const errorMsg = result.error.message;
+            this.setState({
+                usernameHasErrors: true,
+                emailText: result.error.message
+            });
+            isError = true;
+        }
+        // valide password
+        result = Joi.validate(password, Validation.validate.auth.schema.body.password);
+        if (result.error) {
+            const errorMsg = result.error.message;
+            this.setState({
+                passwordHasErrors: true,
+                passwordText: result.error.message
+
+            });
+            isError = true;
         }
 
-
-
-
+        if (!isError) {
+            this.props.handleSubmit(username, password, 'join');
+        }
     }
 
     _handleFormCancel(e) {
         this.props.handleSubmit(null, null, 'cancel');
-
     }
 
 
     componentDidMount() {
         if (Config.environment.isDevelopment()) {
-            console.log("config in dev mode")
             this.setState({
                 email: 'guest@mail.com',
                 password: 'guest123'
@@ -88,6 +102,7 @@ class JoinFormDialog extends Component {
 
 
                         <TextField
+                            required={true}
                             label="Email"
                             InputLabelProps={{
                                 shrink: true,
@@ -99,8 +114,10 @@ class JoinFormDialog extends Component {
                             fullWidth
                             error={this.state.usernameHasErrors}
                             margin="normal"
+                            helperText={this.state.emailText}
                         />
                         <TextField
+                            required={true}
                             error={this.state.passwordHasErrors}
                             label="Password"
                             type="password"
@@ -113,6 +130,7 @@ class JoinFormDialog extends Component {
                             ref="password"
                             fullWidth
                             margin="normal"
+                            helperText={this.state.passwordText}
                         />
 
 

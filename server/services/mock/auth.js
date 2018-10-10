@@ -18,12 +18,18 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/auth/status', (req, res, next) => {
-  res.send({});
+  res.send({
+    'status': 'success',
+    'data': {}
+  })
   next()
 })
 
 server.post({ path:'/api/auth', validation: validation.auth }, (req, res, next) => {
-  res.send({});
+  res.send({
+    'status': 'success',
+    'data': {}
+  })
   next()
 })
 

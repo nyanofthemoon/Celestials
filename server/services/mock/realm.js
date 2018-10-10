@@ -2,18 +2,12 @@
 
 const path = require('path')
 const jsonServer = require('json-server')
-const validator = require('restify-joi-middleware')
 
 const Logger = require('./../../logger')
-
 const CONFIG = require('./../../config')
 const logger = new Logger('SERVICE Realm (Mock)', CONFIG)
 
-var validation = require('./../../validation').validate
-
 const server = jsonServer.create(CONFIG.service.realm.options)
-server.use(validator())
-
 const router = jsonServer.router(path.join(__dirname, 'schema/realm.json'))
 const middlewares = jsonServer.defaults({
   logger: false,
@@ -28,17 +22,21 @@ server.use(jsonServer.rewriter({
 }))
 
 server.get('/realm/status', (req, res, next) => {
-  res.send({});
+  res.send({
+    'status': 'success',
+    'data': {}
+  })
   next()
 })
 
 server.post('/realm/tax', (req, res, next) => {
-
-  res.send({});
+  res.send({
+    'status': 'success',
+    'data': {}
+  })
   next()
 })
 
-server.use(jsonServer.bodyParser)
 server.use(router)
 
 module.exports = {

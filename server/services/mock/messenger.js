@@ -24,13 +24,19 @@ server.get('/api/messenger/status', (req, res, next) => {
 
 server.get('/api/messenger', (req, res, next) => {
   res.send({
-    'messages': []
-  });
+    'status': 'success',
+    'data': {
+      'messages': []
+    }
+  })
   next()
 })
 
 server.post('/api/messenger', (req, res, next) => {
-  res.send({});
+  res.send({
+    'status': 'success',
+    'data': {}
+  })
   next()
 })
 

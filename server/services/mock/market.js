@@ -50,7 +50,10 @@ let DATA = {
 }
 
 server.get('/api/market', (req, res, next) => {
-  res.send(DATA);
+  res.send({
+    'status': 'success',
+    'data': DATA
+  })
   next()
 })
 
@@ -59,11 +62,14 @@ server.post('/api/market/trade', (req, res, next) => {
   // of_type  gold
   // for_type wood
   res.send({
-    'of_amount': 50,
-    'of_type': 'gold',
-    'for_amount': 25,
-    'for_type': 'wood'
-  });
+    'status': 'success',
+    'data': {
+      'of_amount': 50,
+      'of_type': 'gold',
+      'for_amount': 25,
+      'for_type': 'wood'
+    }
+  })
   next()
 })
 

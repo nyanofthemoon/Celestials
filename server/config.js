@@ -18,6 +18,15 @@ module.exports = {
       account: {
         port: process.env.ACCOUNT_SERVICE_PORT || 8200
       },
+      realm: {
+        port: process.env.REALM_SERVICE_PORT || 8300
+      },
+      market: {
+        port: process.env.MARKET_SERVICE_PORT || 8400
+      },
+      messenger: {
+        port: process.env.MESSENGER_SERVICE_PORT || 8500
+      },
     },
 
     store: {

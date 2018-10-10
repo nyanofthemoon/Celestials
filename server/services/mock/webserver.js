@@ -7,6 +7,7 @@ const CONFIG = require('./../../config')
 const logger  = new Logger('SERVICE Webserver (Mock)', CONFIG)
 
 const server = restify.createServer();
+
 server.get('/*', (req, res, next) => {
   res.send('OK')
   next()

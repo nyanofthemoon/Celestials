@@ -1,5 +1,19 @@
 {
   "account": [
-    { "id": 1, "email": "user1@hotchiwawa.com"}
+    {
+      "id": "356A192B7913B04C54574D18C28D46E6395428AB",
+      "email": "user1@hotchiwawa.com",
+      "password": "qwerty",
+      "god_name": "HotChiwawa",
+      "gems": 100,
+      "cards": [
+        {}
+      ],
+      "decks": [
+        {}
+      ],
+      "created_on": 1539174235,
+      "modified_on": 1539174235
+    }
   ]
 }

@@ -65,6 +65,8 @@ Realm
 	- Wood  (initial defaults to Military*1)
 	- Brick	(initial defaults to 0)
 	- Glass (initial defaults to 0)
+	- worldX
+	- worldY
 
 County
 	- County UID (primary)
@@ -73,8 +75,6 @@ County
 	- isColonized (requires moving at least (capital_default_workers/2) and (capital_default_military/2)) and X Gold
 	- taxRate (defaults to default_tax_rate = 10%; max_tax_rate = 50%)
 	- lastHappiness (0-100)
-	- worldX
-	- worldY
 	- regionX
 	- regionY
 	- housingLevel (0-4)
@@ -143,7 +143,7 @@ TRHM = Tax Rate Happiness Modifiers (-50 to 50)
 			if tax_rate == 25		tax_rate_happiness_modifier = 1.3
 			if tax_rate == 26		tax_rate_happiness_modifier = 1.4
 			if tax_rate >= 27	21-50	tax_rate_happiness_modifier = 1.5
-	
+
 TRPM = Tax Rate Productivity Modifiers	(0.5 to 1.0)
 	- TRPM = 1.0 - (tax_rate/100)
 
@@ -223,7 +223,7 @@ Alliance NPC Behaviors
 	- Agressive
 	- Neutral
 	- Pacifist
-	- Chaotic (randomly changes every time)	
+	- Chaotic (randomly changes every time)
 
 
 
@@ -283,7 +283,3 @@ Version 6
 
 purchasable Relics (crystals)
 Multi Realms
-
-
-
-

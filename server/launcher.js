@@ -16,11 +16,13 @@ try {
       serviceIds.push(serviceName)
     } else {
       if (!CONFIG.environment.isDev()) {
-        console.log('sdadasdsa')
         serviceIds.push('webserver')
       }
       serviceIds.push('auth')
       serviceIds.push('account')
+      serviceIds.push('realm')
+      serviceIds.push('market')
+      serviceIds.push('messenger')
     }
 
     for (let id in serviceIds) {

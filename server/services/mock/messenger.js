@@ -6,7 +6,7 @@ const errors = require('restify-errors');
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
-const logger = new Logger('SERVICE Auth (Mock)', CONFIG)
+const logger = new Logger('SERVICE Messenger (Mock)', CONFIG)
 
 const server = restify.createServer();
 server.get('/*', (req, res, next) => {
@@ -14,21 +14,28 @@ server.get('/*', (req, res, next) => {
   return next(new errors.NotFoundError('404'))
 });
 
-server.get('/api/auth/status', (req, res, next) => {
+server.get('/api/messenger/status', (req, res, next) => {
   res.send({});
   next()
 });
 
-server.post('/api/auth', (req, res, next) => {
-  res.send({ hello: 'world' });
+server.get('/api/messenger', (req, res, next) => {
+  res.send({
+    'messages': []
+  });
+  next()
+});
+
+server.post('/api/messenger', (req, res, next) => {
+  res.send({});
   next()
 });
 
 module.exports = {
-    name: 'Auth (Mock)',
+    name: 'Messenger (Mock)',
     mock: true,
     start: () => {
-      const port = CONFIG.service.auth.port
+      const port = CONFIG.service.messenger.port
       server.listen(port, () => {
         logger.success(`Listening on port ${port}`)
       });

@@ -7,10 +7,12 @@ const CONFIG = require('./../config')
 const logger  = new Logger('SERVICE Auth', CONFIG)
 
 const server = restify.createServer();
-server.get('/*', (req, res, next) => {
-  res.send('Hello from auth service')
+
+server.get('/api/auth/status', (req, res, next) => {
+  res.send('HELO')
   next()
 });
+
 server.post('/api/auth', (req, res, next) => {
   res.send('@TODO')
   next()

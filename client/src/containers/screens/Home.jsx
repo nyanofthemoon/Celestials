@@ -1,46 +1,66 @@
 import React, {Component, PropTypes} from 'react'
 import Button from '@material-ui/core/Button';
-
-import TemporaryDrawer from '../../components/TemporaryDrawer'
+import JoinFormDialog from '../../components/forms/JoinFormDialog'
+import { Typography } from '@material-ui/core'
 
 
 class HomeScreen extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
         this.state = {
-            joinDrawerOpen: false,
-            playDrawerOpen: false
-        }
-        this.openJoinDrawer = this.openJoinDrawer.bind(this);
-        this.openPlayDrawer = this.openPlayDrawer.bind(this);
+            joinFormDialogOpen: false,
+            playFormDialogOpen: false
+        };
+        this.openJoinFormDialog = this.openJoinFormDialog.bind(this);
+        this.openPlayFormDialog = this.openPlayFormDialog.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    openJoinDrawer() {
+    openJoinFormDialog() {
         this.setState({
-            joinDrawerOpen: true,
-            playDrawerOpen: false
+            joinFormDialogOpen: true,
+            playFormDialogOpen: false
         })
     }
 
-    openPlayDrawer() {
+    openPlayFormDialog() {
         this.setState({
-            joinDrawerOpen: false,
-            playDrawerOpen: true
+            joinFormDialogOpen: false,
+            playFormDialogOpen: true
         })
     }
+
+    handleSubmit = (username, password, action) => {
+        this.setState({ open: false });
+        console.log(`${action} with username ${username} and password '${password}'`);
+        this.setState({
+            joinFormDialogOpen: false,
+            playFormDialogOpen: false
+        })
+
+    };
+
 
     render() {
         const {engine} = this.props;
-        return (<div>
-                    <h1>Celestials</h1>
-                    <img src="http://fpoimg.com/300x300?text=Celestials Logo"/>
-                    <br/>
-                    <Button variant="contained" onClick={this.openJoinDrawer}>join</Button>
-                    <span>or</span>
-                    <Button variant="contained" color="primary" onClick={this.openPlayDrawer}>play</Button>
-                    <TemporaryDrawer open={this.state.joinDrawerOpen} anchor='bottom'>Join Drawer</TemporaryDrawer>
-                    <TemporaryDrawer open={this.state.playDrawerOpen} anchor='bottom'>Play Drawer</TemporaryDrawer>
-                </div>
+        return (
+            <div>
+                <Typography variant='h5' gutterBottom>
+                    Celestials
+                </Typography>
+
+                <img src="http://fpoimg.com/300x300?text=Celestials Logo"/>
+                <br/>
+                <Button variant="contained" onClick={this.openJoinFormDialog}>join</Button>
+                <span>or</span>
+                <Button variant="contained" color="primary" onClick={this.openPlayFormDialog}>play</Button>
+
+                <JoinFormDialog
+                    open={this.state.joinFormDialogOpen}
+                    handleSubmit={this.handleSubmit}>
+
+                </JoinFormDialog>
+            </div>
         );
     }
 }

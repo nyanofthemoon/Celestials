@@ -1,18 +1,21 @@
 'use strict'
 
 const restify = require('restify');
-const errors = require('restify-errors');
+const validator = require('restify-joi-middleware')
 
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
 const logger = new Logger('SERVICE Market (Mock)', CONFIG)
 
-const server = restify.createServer();
-server.get('/*', (req, res, next) => {
-  logger.warning('get /* ')
-  return next(new errors.NotFoundError('404'))
-});
+var validation = require('./../../validation').validate
+
+const server = restify.createServer(CONFIG.service.market.options);
+server.use(restify.plugins.acceptParser(server.acceptable))
+server.use(restify.plugins.queryParser())
+server.use(restify.plugins.bodyParser({mapParams: false}))
+server.use(restify.plugins.gzipResponse())
+server.use(validator())
 
 server.get('/api/market/status', (req, res, next) => {
   res.send({});
@@ -49,7 +52,7 @@ let DATA = {
 server.get('/api/market', (req, res, next) => {
   res.send(DATA);
   next()
-});
+})
 
 server.post('/api/market/trade', (req, res, next) => {
   // of_amount   50
@@ -62,7 +65,7 @@ server.post('/api/market/trade', (req, res, next) => {
     'for_type': 'wood'
   });
   next()
-});
+})
 
 module.exports = {
     name: 'Market (Mock)',

@@ -2,13 +2,18 @@
 
 const path = require('path')
 const jsonServer = require('json-server')
+const validator = require('restify-joi-middleware')
 
 const Logger = require('./../../logger')
 
 const CONFIG = require('./../../config')
 const logger = new Logger('SERVICE Account (Mock)', CONFIG)
 
-const server = jsonServer.create()
+var validation = require('./../../validation').validate
+
+const server = jsonServer.create(CONFIG.service.account.options)
+server.use(validator())
+
 const router = jsonServer.router(path.join(__dirname, 'schema/account.json'))
 const middlewares = jsonServer.defaults({
   logger: false,
@@ -25,7 +30,12 @@ server.use(jsonServer.rewriter({
 server.get('/account/status', (req, res, next) => {
   res.send({});
   next()
-});
+})
+
+server.post({ path:'/account', validation: validation.account }, (req, res, next) => {
+  res.send({});
+  next()
+})
 
 server.use(jsonServer.bodyParser)
 server.use(router)

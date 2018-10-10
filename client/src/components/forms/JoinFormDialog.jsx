@@ -1,14 +1,11 @@
 import React, {Component, PropTypes} from 'react'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Typography } from '@material-ui/core'
-
 
 import Config from './../../config';
 
@@ -80,26 +77,24 @@ class JoinFormDialog extends Component {
                 <Dialog
                     open={this.props.open}
                     onClose={this.props.handleClose}
-                    // aria-labelledby="form-dialog-title"
                 >
                     <DialogTitle id="join-form-dialog-title">Join the Celestials</DialogTitle>
                     <DialogContent>
 
                         <Typography variant="subtitle1">
-                            To join the Celestials, please enter your email address here. We will send
-                            updates occasionally.
+                            [To join the Celestials, please enter your email address here. We will send
+                            updates occasionally.]
                         </Typography>
 
 
                         <TextField
-                            id="email"
                             label="Email"
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             value={this.state.email}
                             onChange={this.handleChange(this, 'email')}
-                            placeholder="you@mail.net"
+                            placeholder="you@mail.com"
                             ref="username"
                             fullWidth
                             error={this.state.usernameHasErrors}
@@ -107,7 +102,6 @@ class JoinFormDialog extends Component {
                         />
                         <TextField
                             error={this.state.passwordHasErrors}
-                            id="password"
                             label="Password"
                             type="password"
                             placeholder="password"
@@ -124,7 +118,7 @@ class JoinFormDialog extends Component {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this._handleFormCancel} color="primary">
+                        <Button onClick={this._handleFormCancel} color="secondary">
                             Cancel
                         </Button>
                         <Button onClick={this._handleFormSubmit} color="primary">

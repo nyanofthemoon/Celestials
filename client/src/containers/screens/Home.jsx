@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import Button from '@material-ui/core/Button';
-import JoinFormDialog from '../../components/forms/JoinFormDialog'
 import { Typography } from '@material-ui/core'
+
+import JoinFormDialog from '../../components/forms/JoinFormDialog'
 
 
 class HomeScreen extends Component {
@@ -31,13 +32,13 @@ class HomeScreen extends Component {
     }
 
     handleSubmit = (username, password, action) => {
-        this.setState({ open: false });
         console.log(`${action} with username ${username} and password '${password}'`);
         this.setState({
             joinFormDialogOpen: false,
             playFormDialogOpen: false
         })
 
+        //@TODO SUBMIT FORM SOMEWHERE :)
     };
 
 
@@ -49,8 +50,8 @@ class HomeScreen extends Component {
                     Celestials
                 </Typography>
 
-                <img src="http://fpoimg.com/300x300?text=Celestials Logo"/>
-                <br/>
+                <img src="http://fpoimg.com/300x300?text=Celestials Logo" />
+                <br />
                 <Button variant="contained" onClick={this.openJoinFormDialog}>join</Button>
                 <span>or</span>
                 <Button variant="contained" color="primary" onClick={this.openPlayFormDialog}>play</Button>
@@ -58,7 +59,6 @@ class HomeScreen extends Component {
                 <JoinFormDialog
                     open={this.state.joinFormDialogOpen}
                     handleSubmit={this.handleSubmit}>
-
                 </JoinFormDialog>
             </div>
         );

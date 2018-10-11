@@ -1,4 +1,15 @@
 @charset "UTF-8";
 
 @import 'normalize';
-//@import 'theme';
+@import 'vars';
+
+//https://github.com/tgdev/animate-sass
+@import "../../../node_modules/animate-sass/animate";
+
+div.inForeground {
+  z-index: 1;
+}
+
+div.inBackground {
+  z-index: -1;
+}

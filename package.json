@@ -30,6 +30,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "animate-sass": "^0.8.2",
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",

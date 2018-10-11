@@ -32,7 +32,6 @@ class JoinFormDialog extends Component {
 
     };
 
-
     _handleFormSubmit(e) {
         //e.preventDefault();
         let isError = false;
@@ -63,7 +62,7 @@ class JoinFormDialog extends Component {
         }
 
         if (!isError) {
-            this.props.handleSubmit(username, password, 'join');
+            this.props.handleSubmit(username, password, 'login');
         }
     }
 
@@ -76,7 +75,7 @@ class JoinFormDialog extends Component {
         if (Config.environment.isDevelopment()) {
             this.setState({
                 email: 'guest@mail.com',
-                password: 'guest123'
+                password: 'guest12'
 
             })
         }
@@ -89,12 +88,11 @@ class JoinFormDialog extends Component {
                     open={this.props.open}
                     onClose={this.props.handleClose}
                 >
-                    <DialogTitle id="join-form-dialog-title">Join the Celestials</DialogTitle>
+                    <DialogTitle id="join-form-dialog-title">Log in to Celestials</DialogTitle>
                     <DialogContent>
 
                         <Typography variant="subtitle1">
-                            [To join the Celestials, please enter your email address here. We will send
-                            updates occasionally.]
+                            [Input your credentials to log in to Celestials]
                         </Typography>
 
 
@@ -137,7 +135,7 @@ class JoinFormDialog extends Component {
                             Cancel
                         </Button>
                         <Button onClick={this._handleFormSubmit} color="primary">
-                            Join
+                            Log in
                         </Button>
                     </DialogActions>
                 </Dialog>

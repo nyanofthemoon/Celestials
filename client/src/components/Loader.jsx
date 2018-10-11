@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {loadAllGraphicsWithProgress} from '../helpers/loader';
+//import {loadAllGraphicsWithProgress} from '../helpers/loader';
 
 class Loader extends Component {
     constructor(props) {
@@ -20,16 +20,22 @@ class Loader extends Component {
         });
     }
     componentDidMount() {
-        var that  = this;
-        function updateProgress() {
-            that.setState({
-                progress: (that.state.progress + 1)
-            });
-        }
-        this.setState({ step: 'world' });
-        that.props.handleCompletion();
+        //var that  = this;
+        //function updateProgress() {
+       //     that.setState({
+       //         progress: (that.state.progress + 1)
+        //    });
+        //}
+        //this.setState({ step: 'world' });
+        let that = this
+        setTimeout(() => {
+            that.props.handleCompletion();
+        }, 1000)
+
     }
     render() {
+        return null
+        /*
         let percentage = Math.ceil((this.state.progress / this.state.count) * 100);
         return (
             <div className="text-centered">
@@ -38,7 +44,7 @@ class Loader extends Component {
                     <span style={{width:percentage + '%'}} />
                 </div>
             </div>
-        );
+        );*/
     }
 }
 

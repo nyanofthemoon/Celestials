@@ -1,52 +1,47 @@
 'use strict'
 
-const restify = require('restify');
+const restify = require('restify')
+const restifyPlugins = require('restify').plugins
+const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
+const corsMiddleware = require('restify-cors-middleware')
 
 const Logger = require('./../../logger')
-
 const CONFIG = require('./../../config')
 const logger = new Logger('SERVICE Messenger (Mock)', CONFIG)
+const validation = require('./../../validation').validate
 
-var validation = require('./../../validation').validate
-
-const server = restify.createServer(CONFIG.service.messenger.options);
-server.use(restify.plugins.acceptParser(server.acceptable))
-server.use(restify.plugins.queryParser())
-server.use(restify.plugins.bodyParser({mapParams: false}))
-server.use(restify.plugins.gzipResponse())
+const server = restify.createServer(CONFIG.service.messenger.options)
+const cors = corsMiddleware(CONFIG.cors)
+server.pre(cors.preflight)
+server.use(cors.actual)
+server.use(restifyPlugins.acceptParser(server.acceptable))
+server.use(restifyPlugins.queryParser())
+server.use(restifyPlugins.bodyParser({mapParams: false}))
 server.use(validator())
+server.use(restifyPlugins.gzipResponse())
 
 server.get('/api/messenger/status', (req, res, next) => {
-  res.send({});
-  next()
+  return res.send('OK')
 })
 
 server.get('/api/messenger', (req, res, next) => {
-  res.send({
-    'status': 'success',
-    'data': {
-      'messages': []
-    }
-  })
-  next()
+  return res.send({})
 })
 
-server.post('/api/messenger', (req, res, next) => {
-  res.send({
-    'status': 'success',
-    'data': {}
-  })
-  next()
-})
+server.use(rjwt(CONFIG.jwt).unless({
+  path: [
+    { url: '/api/messenger/status', methods: ['GET'] }
+  ]
+}))
 
 module.exports = {
     name: 'Messenger (Mock)',
-    mock: true,
+    mock: false,
     start: () => {
       const port = CONFIG.service.messenger.port
       server.listen(port, () => {
-        logger.success(`Listening on port ${port}`)
+        logger.success(`Started listening on port ${port}`)
       });
     },
     stop: () => {

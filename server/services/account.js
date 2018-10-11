@@ -1,39 +1,39 @@
 'use strict'
 
-const restify = require('restify');
-const jwt = require('restify-jwt-community');
+const restify = require('restify')
+const restifyPlugins = require('restify').plugins
+const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
+const corsMiddleware = require('restify-cors-middleware')
 
 const Logger = require('./../logger')
-
 const CONFIG = require('./../config')
-const logger  = new Logger('SERVICE Account', CONFIG)
-
+const logger = new Logger('SERVICE Account', CONFIG)
 const validation = require('./../validation').validate
 
-const server = restify.createServer(CONFIG.service.account.options);
-server.use(restify.plugins.acceptParser(server.acceptable))
-server.use(restify.plugins.queryParser())
-server.use(restify.plugins.bodyParser())
-server.use(restify.plugins.fullResponse())
+const server = restify.createServer(CONFIG.service.account.options)
+const cors = corsMiddleware(CONFIG.cors)
+server.pre(cors.preflight)
+server.use(cors.actual)
+server.use(restifyPlugins.acceptParser(server.acceptable))
+server.use(restifyPlugins.queryParser())
+server.use(restifyPlugins.bodyParser({mapParams: false}))
 server.use(validator())
+server.use(restifyPlugins.gzipResponse())
 
 server.get('/api/account/status', (req, res, next) => {
-  res.send('HELO')
-  next()
-});
+  return res.send('OK')
+})
 
-server.post({ path:'/api/account', validation: validation.account }, (req, res, next) => {
-  res.send('@TODO')
+server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
   next()
-});
+})
 
-server.use(jwt({ secret: CONFIG.service.auth.secret }).unless({
+server.use(rjwt(CONFIG.jwt).unless({
   path: [
-    '/api/account/status',
-    { url: '/api/account', methods: ['POST'] }
+    { url: '/api/account/status', methods: ['GET'] }
   ]
-}));
+}))
 
 module.exports = {
     name: 'Account',

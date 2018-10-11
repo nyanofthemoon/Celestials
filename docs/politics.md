@@ -1,12 +1,12 @@
 # Celestials
 
-### Account Service
+### Politics Service
 
 ###### Sample Error Payload
 ```javascript
 {
   "status": "error",
-  "message": "/api/account/error does not exist",
+  "message": "/api/politics/error does not exist",
   "code": "Error"
 }
 ```
@@ -19,7 +19,7 @@
 }
 ```
 
-###### GET /api/account/status
+###### GET /api/politics/status
 ###### Returns the status of the service
 ```javascript
 {

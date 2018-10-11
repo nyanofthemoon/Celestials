@@ -2,14 +2,28 @@
 
 ### Market Service
 
-###### GET /api/market/status
+###### Sample Error Payload
 ```javascript
 {
+  "status": "error",
+  "message": "/api/market/error does not exist",
+  "code": "Error"
 }
 ```
 
-###### POST /api/market
+###### Sample Success Payload
 ```javascript
 {
+  "status": "success",
+  "data": {}
+}
+```
+
+###### GET /api/market/status
+###### Returns the status of the service
+```javascript
+{
+  "status": "success",
+  "data": "OK"
 }
 ```

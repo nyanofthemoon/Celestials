@@ -1,45 +1,48 @@
 'use strict'
 
-const path = require('path')
-const jsonServer = require('json-server')
+const restify = require('restify')
+const restifyPlugins = require('restify').plugins
+const rjwt = require('restify-jwt-community')
+const validator = require('restify-joi-middleware')
+const corsMiddleware = require('restify-cors-middleware')
 
 const Logger = require('./../../logger')
 const CONFIG = require('./../../config')
 const logger = new Logger('SERVICE Account (Mock)', CONFIG)
+const validation = require('./../../validation').validate
 
-const server = jsonServer.create(CONFIG.service.account.options)
-const router = jsonServer.router(path.join(__dirname, 'schema/account.json'))
-const middlewares = jsonServer.defaults({
-  logger: false,
-  bodyParser: true,
-  noCors: false,
-  readOnly: false
+const server = restify.createServer(CONFIG.service.account.options)
+const cors = corsMiddleware(CONFIG.cors)
+server.pre(cors.preflight)
+server.use(cors.actual)
+server.use(restifyPlugins.acceptParser(server.acceptable))
+server.use(restifyPlugins.queryParser())
+server.use(restifyPlugins.bodyParser({mapParams: false}))
+server.use(validator())
+server.use(restifyPlugins.gzipResponse())
+
+server.get('/api/account/status', (req, res, next) => {
+  return res.send('OK')
 })
 
-server.use(middlewares)
-
-server.use(jsonServer.rewriter({
-  '/api/*': '/$1'
-}))
-
-server.get('/account/status', (req, res, next) => {
-  res.send({
-    'status': 'success',
-    'data': {}
-  })
+server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
   next()
 })
 
-server.use(router)
+server.use(rjwt(CONFIG.jwt).unless({
+  path: [
+    { url: '/api/account/status', methods: ['GET'] }
+  ]
+}))
 
 module.exports = {
     name: 'Account (Mock)',
-    mock: true,
+    mock: false,
     start: () => {
       const port = CONFIG.service.account.port
       server.listen(port, () => {
-        logger.success(`Listening on port ${port}`)
-      })
+        logger.success(`Started listening on port ${port}`)
+      });
     },
     stop: () => {
       server.close(() => {

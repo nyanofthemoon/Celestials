@@ -20,9 +20,14 @@ try {
       }
       serviceIds.push('auth')
       serviceIds.push('account')
-      serviceIds.push('realm')
+      serviceIds.push('era')
       serviceIds.push('market')
       serviceIds.push('messenger')
+      serviceIds.push('politics')
+      serviceIds.push('realm')
+      serviceIds.push('roguery')
+      serviceIds.push('sorcery')
+      serviceIds.push('warfare')
     }
 
     for (let id in serviceIds) {

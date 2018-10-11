@@ -8,7 +8,7 @@
     "eslint": "eslint --fix ./server ./client",
     "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline --open --history-api-fallback --compress --no-info --https --public",
     "mock-services": "nodemon --watch server server/launcher.js",
-    "dev": "npm run webpack-dev-server & NODE_ENV=development npm run mock-services",
+    "dev": "NODE_ENV=development npm run mock-services & npm run webpack-dev-server",
     "dist": "webpack --config webpack.prod.config.js",
     "service-webserver": "node --harmony server/launcher.js --service webserver --nomock",
     "service-auth": "node --harmony server/launcher.js --service auth --nomock",
@@ -58,6 +58,7 @@
     "immutable": "^3.8.2",
     "joi": "^13.7.0",
     "joi-browser": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "material-ui-image": "^3.0.0",
     "pm2": "^3.0.4",
     "react": "^16.5.0",
@@ -66,8 +67,11 @@
     "redis": "^2.8.0",
     "redux": "^4.0.0",
     "restify": "^7.2.1",
+    "restify-cors-middleware": "^1.1.1",
+    "restify-errors": "^6.1.1",
     "restify-joi-middleware": "^5.0.0",
     "restify-jwt-community": "^1.0.8",
+    "restify-plugins": "^1.6.0",
     "yargs": "^12.0.2"
   }
 }

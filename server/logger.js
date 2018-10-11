@@ -6,8 +6,8 @@ let chalk = require('chalk')
 class Logger {
 
     constructor(namespace, config) {
-        if (namespace.length < 21) {
-            namespace += ' '.repeat(21 - namespace.length)
+        if (namespace.length < 24) {
+            namespace += ' '.repeat(24 - namespace.length)
         }
 
         this.namespace = namespace

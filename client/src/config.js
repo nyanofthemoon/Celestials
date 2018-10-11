@@ -5,7 +5,7 @@ let verbose  = false
 
 if (['localhost', '127.0.0.1'].indexOf(host) > -1) {
     name     = 'development'
-    port     = ':8000'
+    port     = ':9000'
     verbose  = true
 }
 

@@ -8,10 +8,10 @@ const corsMiddleware = require('restify-cors-middleware')
 
 const Logger = require('./../../logger')
 const CONFIG = require('./../../config')
-const logger = new Logger('SERVICE Market (Mock)', CONFIG)
+const logger = new Logger('SERVICE Era (Mock)', CONFIG)
 const validation = require('./../../validation').validate
 
-const server = restify.createServer(CONFIG.service.market.options)
+const server = restify.createServer(CONFIG.service.era.options)
 const cors = corsMiddleware(CONFIG.cors)
 server.pre(cors.preflight)
 server.use(cors.actual)
@@ -21,70 +21,47 @@ server.use(restifyPlugins.bodyParser({mapParams: false}))
 server.use(validator())
 server.use(restifyPlugins.gzipResponse())
 
-server.get('/api/market/status', (req, res, next) => {
+server.get('/api/era/status', (req, res, next) => {
   return res.send('OK')
 });
 
-let DATA = {
-  "food": {
-    "stock": 4250,
-    "value": 1
-  },
-  "gold": {
-    "stock": 250,
-    "value": 20
-  },
-  "wood": {
-    "stock": 125,
-    "value": 40
-  },
-  "brick": {
-    "stock": 85,
-    "value": 50
-  },
-  "ore": {
-    "stock": 50,
-    "value": 100
-  },
-  "glass": {
-    "stock": 25,
-    "value": 200
-  }
-}
+const INITIAL = new Date().getTime()
 
-server.get('/api/market', (req, res, next) => {
-  return res.send(DATA)
+server.get('/api/era', (req, res, next) => {
+  return res.send({
+    'era': 1,
+    'name': 'Era of Debugging',
+    'generations': CONFIG.service.era.lengthInGenerations,
+    'last': INITIAL,
+    'next': (INITIAL + CONFIG.service.era.generationLength)
+  })
 })
 
-server.post('/api/market', (req, res, next) => {
-  // of_amount   50
-  // of_type  gold
-  // for_type wood
+server.get('/api/era/generation', (req, res, next) => {
   return res.send({
-    'status': 'success',
-    'data': {
-      'of_amount': 50,
-      'of_type': 'gold',
-      'for_amount': 25,
-      'for_type': 'wood'
-    }
+    'generation': 1,
+    'name': 'Generation Bugs',
+    'last': INITIAL,
+    'next': (INITIAL + (CONFIG.service.era.generationLength * CONFIG.service.era.lengthInGenerations))
   })
 })
 
 server.use(rjwt(CONFIG.jwt).unless({
   path: [
-    { url: '/api/market/status', methods: ['GET'] }
+    { url: '/api/era/status', methods: ['GET'] },
+    { url: '/api/era', methods: ['GET'] },
+    { url: '/api/era/generation', methods: ['GET'] }
   ]
 }))
 
 module.exports = {
-    name: 'Market (Mock)',
+    name: 'Era (Mock)',
     mock: true,
     start: () => {
-      const port = CONFIG.service.market.port
+      const port = CONFIG.service.era.port
       server.listen(port, () => {
         logger.success(`Listening on port ${port}`)
-      });
+      })
     },
     stop: () => {
       server.close(() => {

@@ -17,7 +17,7 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/auth/status', (req, res, next) => {
-  res.send('HELO')
+  res.send('OK')
   next()
 })
 

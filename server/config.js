@@ -2,6 +2,67 @@
 
 const jsend = require('./jsend')
 
+const DEFAULT_TAX = 10
+const MAX_TAX = 50
+
+const housingSpaceBonus = (currentPopulation, maxPopulation) => {
+  return (25 * (currentPopulation / maxPopulation))
+}
+const foodSurplusBonus = (generationFoodConsumption, foodStockForGeneration) => {
+  return (25 * (generationFoodConsumption / foodStockForGeneration))
+}
+const taxProductivityBonus = (tax) => {
+  return 1 - (tax/100)
+}
+const taxHappinessBonus = (tax) => {
+  let taxModifier
+  if (tax <= 10) { taxModifier = 0.667
+  } else if (tax <= 20) { taxModifier = 0.85
+  } else if (tax == 21) { taxModifier = 1.0
+  } else if (tax == 22) { taxModifier = 1.1
+  } else if (tax == 23) { taxModifier = 1.2
+  } else if (tax == 24) { taxModifier = 1.25
+  } else if (tax == 25) { taxModifier = 1.3
+  } else if (tax == 26) { taxModifier = 1.4
+  } else { taxModifier = 1.5 }
+  return MAX_TAX - (tax * taxModifier)
+}
+const happiness = (housingSpaceBonus, foodSurplusBonus, taxHappinessBonus) => {
+  return ((housingSpaceBonus + foodSurplusBonus + taxHappinessBonus) / 100)
+}
+const productivity = (taxProductivityBonus) => {
+  return taxProductivityBonus
+}
+const workerGrowth = (workers, happiness) => {
+  return Math.floor(workers * happiness)
+}
+const goldGeneration = (workers, tax, productivity) => {
+  return Math.floor((workers/1) * (tax/100) * productivity)
+}
+const foodGeneration = (workers, tax, productivity, lakes, fields, forests) => {
+  return Math.floor((workers/1) * (tax/100) * productivity * (10*lakes + 5*fields + 2*forests))
+}
+const woodGeneration = (workers, tax, productivity, forests) => {
+  return Math.floor((workers/2) * (tax/100) * productivity * (1*forests))
+}
+const brickGeneration = (workers, tax, productivity, fields) => {
+  return Math.floor((workers/3) * (tax/100) * productivity * (1*fields))
+}
+const oreGeneration = (workers, tax, productivity, mountains) => {
+  return Math.floor((workers/5) * (tax/100) * productivity * (1*mountains))
+}
+const glassGeneration = (workers, tax, productivity, deserts) => {
+  return Math.floor((workers/10) * (tax/100) * productivity * (1*deserts))
+}
+
+const corsOrigins = () => {
+ if (process.env.NODE_ENV != 'development') {
+   return process.env.CORS_ORIGINS || []
+ }
+ return ['*']
+}
+const CORS_ORIGINS = corsOrigins()
+
 module.exports = {
 
     environment: {
@@ -9,56 +70,129 @@ module.exports = {
         isDev: () => { return process.env.NODE_ENV === 'development' }
     },
 
-    service: {
-      webserver: {
-        port: process.env.WEBSERVER_SERVICE_PORT || 8000,
-        options: {
-          name: 'NyanCat - Web Service',
-          formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+    cors: {
+      preflightMaxAge: 5,
+      origins: CORS_ORIGINS,
+      //allowHeaders: ['API-Token'],
+      //exposeHeaders: ['API-Token-Expiry']
+    },
+
+    jwt: {
+        secret: Buffer.from((process.env.JWT_SECRET || 'qwerty'), 'base64'),
+        credentialsRequired: true,
+        requestProperty: 'auth',
+        getToken: (req) => {
+          if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+          }
+          return null;
         }
-      },
+    },
+
+    service: {
       auth: {
-        secret: process.env.AUTH_SERVICE_SECRET || 'qwerty',
-        port: process.env.AUTH_SERVICE_PORT || 8100,
+        port: process.env.AUTH_SERVICE_PORT || 8000,
         options: {
-          name: 'NyanCat - Auth Service',
+          name: 'Celestials - Auth Service',
           formatters: { 'application/json': jsend },
           ignoreTrailingSlash: true
         }
       },
       account: {
-        port: process.env.ACCOUNT_SERVICE_PORT || 8200,
+        port: process.env.ACCOUNT_SERVICE_PORT || 8100,
         options: {
-          name: 'NyanCat - Account Service',
+          name: 'Celestials - Account Service',
           formatters: { 'application/json': jsend },
           ignoreTrailingSlash: true
         }
       },
-      realm: {
-        port: process.env.REALM_SERVICE_PORT || 8300,
+      era: {
+        port: process.env.ERA_SERVICE_PORT || 8200,
+        generationLength: 86000,
+        lengthInGenerations: 30,
         options: {
-          name: 'NyanCat - Realm Service',
+          name: 'Celestials - Era Service',
           formatters: { 'application/json': jsend },
           ignoreTrailingSlash: true
         }
       },
       market: {
-        port: process.env.MARKET_SERVICE_PORT || 8400,
+        port: process.env.MARKET_SERVICE_PORT || 8300,
         options: {
-          name: 'NyanCat - Market Service',
+          name: 'Celestials - Market Service',
           formatters: { 'application/json': jsend },
           ignoreTrailingSlash: true
         }
       },
       messenger: {
-        port: process.env.MESSENGER_SERVICE_PORT || 8500,
+        port: process.env.MESSENGER_SERVICE_PORT || 8400,
         options: {
-          name: 'NyanCat - Messenger Service',
+          name: 'Celestials - Messenger Service',
           formatters: { 'application/json': jsend },
           ignoreTrailingSlash: true
         }
       },
+      politics: {
+        port: process.env.POLITICS_SERVICE_PORT || 8500,
+        options: {
+          name: 'Celestials - Politics Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        }
+      },
+      realm: {
+        port: process.env.REALM_SERVICE_PORT || 8600,
+        options: {
+          name: 'Celestials - Realm Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        },
+        config: {
+          defaultTax: DEFAULT_TAX,
+          maxTax: MAX_TAX
+        },
+        maths: {
+          housingSpaceBonus: housingSpaceBonus,
+          foodSurplusBonus: foodSurplusBonus,
+          taxHappinessBonus: taxHappinessBonus,
+          taxProductivityBonus: taxProductivityBonus,
+          happiness: happiness,
+          productivity: productivity,
+          workerGrowth: workerGrowth
+        },
+      },
+      roguery: {
+        port: process.env.ROGUERY_SERVICE_PORT || 8700,
+        options: {
+          name: 'Celestials - Roguery Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        }
+      },
+      sorcery: {
+        port: process.env.SORCERY_SERVICE_PORT || 8800,
+        options: {
+          name: 'Celestials - Sorcery Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        }
+      },
+      warfare: {
+        port: process.env.WARFARE_SERVICE_PORT || 8900,
+        options: {
+          name: 'Celestials - Warfare Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        }
+      },
+      webserver: {
+        port: process.env.WEBSERVER_SERVICE_PORT || 9000,
+        options: {
+          name: 'Celestials - Web Service',
+          formatters: { 'application/json': jsend },
+          ignoreTrailingSlash: true
+        }
+      }
     },
 
     store: {
@@ -72,6 +206,28 @@ module.exports = {
           url: process.env.HAZELCAST_URL || 'hazelcast://127.0.0.1:7337',
           options: {}
       }
+    },
+
+    default: {
+      tax: DEFAULT_TAX
+    },
+
+    max: {
+      tax: DEFAULT_TAX
+    },
+
+    maths: {
+      housingSpaceBonus: housingSpaceBonus,
+      foodSurplusBonus: foodSurplusBonus,
+      taxHappinessBonus: taxHappinessBonus,
+      taxProductivityBonus: taxProductivityBonus,
+      happiness: happiness,
+      productivity: productivity,
+      workerGrowth: workerGrowth
+    },
+
+    costs: {
+
     }
 
 }

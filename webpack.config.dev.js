@@ -6,7 +6,7 @@ console.log(path.resolve(__dirname, 'client/public/js'));
 module.exports = {
   mode: 'development',
   entry: [
-    'webpack-dev-server/client?http://localhost:8000',
+    'webpack-dev-server/client?http://localhost:9000',
     'webpack/hot/only-dev-server',
     __dirname + '/client/src/index.jsx'
   ],
@@ -36,7 +36,7 @@ module.exports = {
   },
   devtool: 'cheap-eval-sourcemaps',
   devServer: {
-        port: 8000,
+        port: 9000,
         contentBase: 'client/public',
         watchContentBase: true,
         progress: true,

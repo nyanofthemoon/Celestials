@@ -1,12 +1,12 @@
 # Celestials
 
-### Account Service
+### Sorcery Service
 
 ###### Sample Error Payload
 ```javascript
 {
   "status": "error",
-  "message": "/api/account/error does not exist",
+  "message": "/api/sorcery/error does not exist",
   "code": "Error"
 }
 ```
@@ -19,7 +19,7 @@
 }
 ```
 
-###### GET /api/account/status
+###### GET /api/sorcery/status
 ###### Returns the status of the service
 ```javascript
 {

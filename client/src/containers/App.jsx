@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import Loader from './../components/Loader'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
-import {assetLoaderCompletion} from './../actions'
+import {assetLoaderCompletion, loginCompletion} from './../actions'
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
                 <Loader handleCompletion={actions.assetLoaderCompletion}/>
             </div>);
         case 'loaded':
-            return <HomeScreen />;
+            return <HomeScreen handleCompletion={actions.loginCompletion}/>;
         case 'connected':
             return <GameScreen />
         }
@@ -36,7 +36,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
-            assetLoaderCompletion
+            assetLoaderCompletion,
+            loginCompletion
         }, dispatch)
     }
 }

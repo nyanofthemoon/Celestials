@@ -1,12 +1,16 @@
-import React, {Component, PropTypes} from 'react'
-
+import React, {Component} from 'react'
+import { Typography } from '@material-ui/core'
 
 class GameScreen extends Component {
     render() {
         const {engine} = this.props;
-        return (<div className="flex-vertical-container">
-            <h1 className="logo">Game Screen</h1>
-        </div>);
+        return (
+            <div >
+                <Typography variant={"h1"}>
+                Game Screen
+                </Typography>
+            </div>
+        );
     }
 }
 

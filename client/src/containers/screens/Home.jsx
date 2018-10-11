@@ -1,9 +1,8 @@
-import React, {Component, PropTypes} from 'react'
-import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core'
+import React, {Component} from 'react'
+import { Button, Typography } from '@material-ui/core'
 
-import JoinFormDialog from '../../components/forms/JoinFormDialog'
-
+import JoinFormDialog from '../../components/forms/JoinFormDialog';
+import LoginFormDialog from '../../components/forms/LoginFormDialog';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -32,11 +31,30 @@ class HomeScreen extends Component {
     }
 
     handleSubmit = (username, password, action) => {
+        var that  = this;
         console.log(`${action} with username ${username} and password '${password}'`);
+
+        switch (action) {
+            case 'login':
+                //@TODO connect to api auth to validate
+                console.log('logging in');
+                if (username === 'guest@mail.com' && password === 'guest123') {
+                    that.props.handleCompletion();
+                }
+
+                break;
+            case 'join':
+                console.log('joining in the Celestials');
+                //@TODO connect to api to register
+                break;
+            default:
+                break;
+
+        }
         this.setState({
             joinFormDialogOpen: false,
             playFormDialogOpen: false
-        })
+        });
 
         //@TODO SUBMIT FORM SOMEWHERE :)
     };
@@ -60,6 +78,10 @@ class HomeScreen extends Component {
                     open={this.state.joinFormDialogOpen}
                     handleSubmit={this.handleSubmit}>
                 </JoinFormDialog>
+                <LoginFormDialog
+                    open={this.state.playFormDialogOpen}
+                    handleSubmit={this.handleSubmit}>
+                </LoginFormDialog>
             </div>
         );
     }

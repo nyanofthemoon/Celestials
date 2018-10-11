@@ -37,10 +37,8 @@ class HomeScreen extends Component {
         switch (action) {
             case 'login':
                 //@TODO connect to api auth to validate
-                console.log('logging in');
-                if (username === 'guest@mail.com' && password === 'guest123') {
-                    that.props.handleCompletion();
-                }
+                console.log('logging in....');
+                that.props.handleCompletion(username, password);
 
                 break;
             case 'join':

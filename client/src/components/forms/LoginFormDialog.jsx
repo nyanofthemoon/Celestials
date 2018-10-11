@@ -27,9 +27,6 @@ class JoinFormDialog extends Component {
             [name]: event.target.value,
             usernameHasError: true
         });
-        console.log(that.refs.username)
-
-
     };
 
     _handleFormSubmit(e) {
@@ -49,7 +46,7 @@ class JoinFormDialog extends Component {
             });
             isError = true;
         }
-        // valide password
+        // validate password
         result = Joi.validate(password, Validation.validate.auth.schema.body.password);
         if (result.error) {
             const errorMsg = result.error.message;

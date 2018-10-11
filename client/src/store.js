@@ -8,11 +8,11 @@ function configureStore() {
         return createStore(rootReducer)
     }
 
-    const store = createStore(rootReducer, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+    const store = createStore(rootReducer, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
-            const nextReducer = require('./reducers').default
+            const nextReducer = require('./reducers').default;
             store.replaceReducer(nextReducer)
         })
     }

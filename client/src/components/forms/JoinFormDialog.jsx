@@ -27,11 +27,7 @@ class JoinFormDialog extends Component {
             [name]: event.target.value,
             usernameHasError: true
         });
-        console.log(that.refs.username)
-
-
     };
-
 
     _handleFormSubmit(e) {
         //e.preventDefault();
@@ -77,10 +73,8 @@ class JoinFormDialog extends Component {
             this.setState({
                 email: 'guest@mail.com',
                 password: 'guest123'
-
             })
         }
-
     }
     render() {
         return (

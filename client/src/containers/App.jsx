@@ -1,13 +1,15 @@
 import { hot } from 'react-hot-loader'
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
 import Loader from './../components/Loader'
+import RequestAuth from '../components/RequestAuth'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
 import CircularLoader from '../components/CircularLoader'
-import {assetLoaderCompletion, loginCompletion, startLoading, stopLoading} from './../actions'
+import {assetLoaderCompletion, loginCompletion, startLoading,
+    stopLoading, requestAuth, loginFailed, loginInfo } from './../actions'
 
 
 class App extends Component {
@@ -22,10 +24,13 @@ class App extends Component {
                 component = <Loader handleCompletion={actions.assetLoaderCompletion}/>;
                 break;
             case 'loaded':
-                component = <HomeScreen handleCompletion={actions.loginCompletion}/>
+                component = <HomeScreen
+                    handleCompletion={actions.requestAuth}
+
+                />;
                 break;
             case 'connected':
-                component = <GameScreen />
+                component = <GameScreen />;
                 break;
         }
 
@@ -51,7 +56,8 @@ function mapDispatchToProps(dispatch) {
             assetLoaderCompletion,
             loginCompletion,
             startLoading,
-            stopLoading
+            stopLoading, requestAuth,
+            loginFailed
         }, dispatch)
     }
 }

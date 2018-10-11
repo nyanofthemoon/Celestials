@@ -4,6 +4,7 @@ import Config from './../config'
 import * as types from './../constants/ActionTypes'
 
 const initialState = fromJS({
+    loading: true,
     status: 'loading'
 });
 
@@ -12,10 +13,19 @@ const engine = (state = initialState, action) => {
     let nextState;
     switch (action.type) {
     case types.ASSET_LOADER_COMPLETION:
-        nextState = fromJS(state).set('status', 'loaded');
+        nextState = fromJS(state).merge({
+            'status':'loaded',
+            'loading': false
+        });
         break;
     case types.LOGIN:
         nextState = fromJS(state).set('status', 'connected');
+        break;
+    case types.SHOW_LOADING:
+        nextState = fromJS(state).set('loading', true);
+        break;
+    case types.HIDE_LOADING:
+        nextState = fromJS(state).set('loading', false);
         break;
     default:
         actionIsInCurrentReducer = false;

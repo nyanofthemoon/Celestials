@@ -2,8 +2,6 @@ import Config from './config'
 import * as types from './constants/ActionTypes'
 import Store from './store'
 
-let dispatch;
-
 
 function _getState() {
     return Store.getState()
@@ -18,7 +16,19 @@ export function assetLoaderCompletion(musics, sounds) {
     return {type: types.ASSET_LOADER_COMPLETION}
 }
 
+export function startLoading() {
+    return {type: types.SHOW_LOADING}
+}
+
+export function stopLoading() {
+    return {type: types.HIDE_LOADING}
+}
+
+
+
+
 export function loginCompletion() {
     return {type: types.LOGIN}
+    Store.dispatch(stopLoading())
 }
 

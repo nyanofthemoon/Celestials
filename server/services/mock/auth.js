@@ -35,7 +35,7 @@ server.post('/api/auth', (req, res, next) => {
   if (req.body.email == 'guest@mail.com' && req.body.password == 'guest123') {
     let token = jwt.sign({
       account: {
-        email: req.body.email
+        id: '356A192B7913B04C54574D18C28D46E6395428AB'
       }
     }, CONFIG.jwt.secret, { expiresIn: '60m' });
     res.send({ token })

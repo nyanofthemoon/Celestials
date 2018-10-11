@@ -27,3 +27,25 @@
   "data": "OK"
 }
 ```
+
+###### GET /api/account
+###### Returns account for the associated JWT
+```javascript
+{
+  "status": "success",
+  "data": {
+    "id": "356A192B7913B04C54574D18C28D46E6395428AB",
+    "email": "guest@mail.com",
+    "god_name": "HotChiwawa",
+    "gems": 100,
+    "cards": [
+      {}
+    ],
+    "decks": [
+      {}
+    ],
+    "created_on": 1539174235,
+    "modified_on": 1539174235
+  }
+}
+```

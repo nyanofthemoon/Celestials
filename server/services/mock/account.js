@@ -25,8 +25,28 @@ server.get('/api/account/status', (req, res, next) => {
   return res.send('OK')
 })
 
+server.get({ path: '/api/account' }, (req, res, next) => {
+  return res.send({
+    'id': '356A192B7913B04C54574D18C28D46E6395428AB',
+    'email': 'guest@mail.com',
+    'password': 'guest123',
+    'god_name': 'HotChiwawa',
+    'gems': 100,
+    'cards': [
+      {}
+    ],
+    'decks': [
+      {}
+    ],
+    'created_on': 1539174235,
+    'modified_on': 1539174235
+  })
+})
+
 server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
-  next()
+  return res.send({
+    'id': '356A192B7913B04C54574D18C28D46E6395428AB'
+  })
 })
 
 server.use(rjwt(CONFIG.jwt).unless({

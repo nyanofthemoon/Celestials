@@ -27,12 +27,12 @@ server.get('/api/auth/status', (req, res, next) => {
   return res.send('OK')
 })
 
-server.get('/api/auth', (req, res, next) => {
-  return res.send(req.auth)
-})
-
 server.post('/api/auth', (req, res, next) => {
   return next(new errors.UnauthorizedError())
+})
+
+server.get('/api/auth', (req, res, next) => {
+  return res.send(req.auth)
 })
 
 server.use(rjwt(CONFIG.jwt).unless({

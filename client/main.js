@@ -2,9 +2,11 @@
 
 const CONFIG = require('./config')
 
-let express = require('express')
+const express = require('express')
+const https = require('https');
+const fs = require('fs');
 
-let logger = new (require('./../server/logger'))('SERVICE Webserver', CONFIG)
+const logger = new (require('./../server/logger'))('SERVICE Webserver', CONFIG)
 
 let options = {
     dotfiles  : 'ignore',

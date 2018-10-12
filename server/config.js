@@ -1,5 +1,7 @@
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
 const jsend = require('./jsend')
 
 const DEFAULT_TAX = 10
@@ -95,7 +97,9 @@ module.exports = {
         options: {
           name: 'Celestials - Auth Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       account: {
@@ -103,7 +107,9 @@ module.exports = {
         options: {
           name: 'Celestials - Account Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       era: {
@@ -113,7 +119,9 @@ module.exports = {
         options: {
           name: 'Celestials - Era Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       market: {
@@ -121,7 +129,9 @@ module.exports = {
         options: {
           name: 'Celestials - Market Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       messenger: {
@@ -129,7 +139,9 @@ module.exports = {
         options: {
           name: 'Celestials - Messenger Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       politics: {
@@ -137,7 +149,9 @@ module.exports = {
         options: {
           name: 'Celestials - Politics Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       realm: {
@@ -145,7 +159,9 @@ module.exports = {
         options: {
           name: 'Celestials - Realm Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         },
         config: {
           defaultTax: DEFAULT_TAX,
@@ -166,7 +182,9 @@ module.exports = {
         options: {
           name: 'Celestials - Roguery Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       sorcery: {
@@ -174,7 +192,9 @@ module.exports = {
         options: {
           name: 'Celestials - Sorcery Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       warfare: {
@@ -182,7 +202,9 @@ module.exports = {
         options: {
           name: 'Celestials - Warfare Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       },
       webserver: {
@@ -190,7 +212,9 @@ module.exports = {
         options: {
           name: 'Celestials - Web Service',
           formatters: { 'application/json': jsend },
-          ignoreTrailingSlash: true
+          ignoreTrailingSlash: true,
+          key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+          certificate: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
         }
       }
     },

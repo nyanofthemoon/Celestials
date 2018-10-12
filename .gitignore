@@ -4,3 +4,5 @@ client/public/js/*
 dump.rdb
 node_modules
 package-lock.json
+server/server.crt
+server/server.key

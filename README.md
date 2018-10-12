@@ -1,6 +1,8 @@
 # Celestials
 
 ### Services
+- Create a self-signed certificate in `server` directory
+- `openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.crt`
 
 ##### Auth Service
 - [API Documentation](docs/auth.md)

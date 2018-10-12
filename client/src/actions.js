@@ -1,7 +1,7 @@
+import 'cross-fetch/polyfill';
 import Config from './config'
 import * as types from './constants/ActionTypes'
 import Store from './store'
-import 'cross-fetch/polyfill';
 
 function _getState() {
     return Store.getState()

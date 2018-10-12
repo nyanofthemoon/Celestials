@@ -4,18 +4,17 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
 import Loader from './../components/Loader'
-import RequestAuth from '../components/RequestAuth'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
 import CircularLoader from '../components/CircularLoader'
-import {assetLoaderCompletion, loginCompletion, startLoading,
-    stopLoading, requestAuth, loginFailed, loginInfo } from './../actions'
+import {assetLoaderCompletion, AuthSuccess, startLoading,
+    stopLoading, requestAuthWithAxios, authFailed, requestAuthWithFetch } from './../actions'
 
 
 class App extends Component {
     render() {
 
-        const {engine, actions} = this.props;
+        const {engine, actions, player} = this.props;
         let component = null;
 
         switch(engine.get('status')) {
@@ -25,8 +24,7 @@ class App extends Component {
                 break;
             case 'loaded':
                 component = <HomeScreen
-                    handleCompletion={actions.requestAuth}
-
+                    handleCompletion={actions.requestAuthWithAxios}
                 />;
                 break;
             case 'connected':
@@ -35,7 +33,7 @@ class App extends Component {
         }
 
         return (
-            <CircularLoader show={engine.get('loading')}>
+            <CircularLoader show={engine.get('loading')} status={engine.get('message')} player={player.get('data')}>
                 {component}
             </CircularLoader>
         )
@@ -46,7 +44,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        engine: state.engine
+        engine: state.engine,
+        player: state.player
     }
 }
 
@@ -54,10 +53,10 @@ function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
             assetLoaderCompletion,
-            loginCompletion,
+            loginCompletion: AuthSuccess,
             startLoading,
-            stopLoading, requestAuth,
-            loginFailed
+            stopLoading, requestAuthWithAxios, requestAuthWithFetch,
+            loginFailed: authFailed
         }, dispatch)
     }
 }

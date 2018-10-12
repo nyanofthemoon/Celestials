@@ -5,26 +5,31 @@ import * as types from './../constants/ActionTypes'
 
 const initialState = fromJS({
     loading: true,
-    status: 'loading'
+    status: 'loading',
+    message: 'Running version 1'
 });
 
 const engine = (state = initialState, action) => {
     let actionIsInCurrentReducer = true;
     let nextState;
+    const previousMsg = initialState.get('message');
     switch (action.type) {
         case types.ASSET_LOADER_COMPLETION:
+
             nextState = fromJS(state).merge({
                 'status':'loaded',
-                'loading': false
+                'loading': false,
+                'message': previousMsg + ' - assets loaded'
             });
             break;
-        case types.LOGIN_SUCCESS:
+        case types.AUTH_SUCCESS:
             nextState = fromJS(state).set('status', 'connected');
             break;
-        case types.LOGIN_FAILED:
+        case types.AUTH_FAILED:
             nextState = fromJS(state).merge({
                 'status':'loaded',
-                'loading': false
+                'loading': false,
+                'message': previousMsg + ' - authorization failed'
             });
             break;
         case types.SHOW_LOADING:
@@ -45,6 +50,6 @@ const engine = (state = initialState, action) => {
     }
     if (Config.environment.isVerbose() && actionIsInCurrentReducer) { console.log('[Reducer  ] Engine ' + action.type) } // eslint-disable-line no-console
     return nextState || state
-}
+};
 
 export default engine

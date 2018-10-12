@@ -1,4 +1,7 @@
 import 'cross-fetch/polyfill';
+import Axios from 'axios';
+import https from 'https';
+
 import Config from './config'
 import * as types from './constants/ActionTypes'
 import Store from './store'
@@ -47,43 +50,57 @@ export function requestAuth(username, password) {
 
 
     // if (username === 'guest@mail.com' && password === 'guest123') {
-    //     return {type: types.LOGIN_SUCCESS}
+    //     return {type: types.AUTH_SUCCESS}
     // } else {
-    //     return {type: types.LOGIN_FAILED}
+    //     return {type: types.AUTH_FAILED}
     // }
 
 }*/
 
-export function loginFailed() {
-    return {type: types.LOGIN_FAILED}
+export function authFailed() {
+    return {type: types.AUTH_FAILED}
 }
 
 
-export function loginCompletion() {
-    return {type: types.LOGIN_SUCCESS}
+export function AuthSuccess() {
+    return {type: types.AUTH_SUCCESS}
     Store.dispatch(stopLoading())
 }
 
 function completeAuth(username, password) {
     Store.dispatch(stopLoading());
     if (username === 'guest@mail.com' && password === 'guest123') {
-        return {type: types.LOGIN_SUCCESS, payload: { email: username }}
+        return {type: types.AUTH_SUCCESS, payload: { email: username }}
     } else {
-        return {type: types.LOGIN_FAILED}
+        return {type: types.AUTH_FAILED}
     }
 
 }
 
 
-
-
-
-export function requestAuth(username, password) {
+export function requestAuthWithFetch(username, password) {
   return async (dispatch, getState) => {
-    dispatch(startLoading())
-    let response = await fetch('http://localhost:8000/api/auth/status')
-    let data = await response.json()
-    dispatch({type: types.LOGIN_SUCCESS, payload: { email: data }})
+    dispatch(startLoading());
+    let response = await fetch('https://localhost:8000/api/auth/status');
+    let data = await response.json();
+    dispatch({type: types.AUTH_SUCCESS, payload: { email: data }});
     dispatch(stopLoading())
   }
+}
+
+export function requestAuthWithAxios(username, password) {
+    return async (dispatch, getState) => {
+        dispatch(startLoading());
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+        let response = await Axios.get('https://localhost:8000/api/auth/status', {httpsAgent: agent});
+        // let data = await response.json();
+
+        console.log(response.data.data)
+
+
+        dispatch({type: types.AUTH_SUCCESS, payload: { email: username }});
+        dispatch(stopLoading())
+    }
 }

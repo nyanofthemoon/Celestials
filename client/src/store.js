@@ -14,14 +14,19 @@ const thunk = store => {
 }
 
 function configureStore() {
-    if (!Config.environment.isDevelopment() || !window.__REDUX_DEVTOOLS_EXTENSION__) {
+    if (!Config.environment.isDevelopment()) {
       return createStore(rootReducer, {}, applyMiddleware(thunk));
     }
 
-    return createStore(rootReducer, {}, compose(
-      applyMiddleware(thunk),
-      window.__REDUX_DEVTOOLS_EXTENSION__()
-    ))
+    let store = null
+    if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+      store = createStore(rootReducer, {}, compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+      ))
+    } else {
+      store = createStore(rootReducer, {}, applyMiddleware(thunk));
+    }
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {

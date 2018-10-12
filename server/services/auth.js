@@ -1,8 +1,12 @@
 'use strict'
 
 const restify = require('restify')
-const jwt = require('restify-jwt-community')
+const errors = require('restify-errors')
+const restifyPlugins = require('restify').plugins
+const rjwt = require('restify-jwt-community')
+const jwt = require('jsonwebtoken')
 const validator = require('restify-joi-middleware')
+const corsMiddleware = require('restify-cors-middleware')
 
 const Logger = require('./../logger')
 const CONFIG = require('./../config')
@@ -10,23 +14,28 @@ const logger  = new Logger('SERVICE Auth', CONFIG)
 const validation = require('./../validation').validate
 
 const server = restify.createServer(CONFIG.service.auth.options)
-server.use(restify.plugins.acceptParser(server.acceptable))
-server.use(restify.plugins.queryParser())
-server.use(restify.plugins.bodyParser({mapParams: false}))
-server.use(restify.plugins.gzipResponse())
+const cors = corsMiddleware(CONFIG.cors)
+server.pre(cors.preflight)
+server.use(cors.actual)
+server.use(restifyPlugins.acceptParser(server.acceptable))
+server.use(restifyPlugins.queryParser())
+server.use(restifyPlugins.bodyParser({mapParams: false}))
 server.use(validator())
+server.use(restifyPlugins.gzipResponse())
 
 server.get('/api/auth/status', (req, res, next) => {
-  res.send('OK')
-  next()
+  return res.send('OK')
 })
 
-server.post({ path:'/api/auth', validation: validation.auth }, (req, res, next) => {
-  res.send('@TODO')
-  next()
+server.get('/api/auth', (req, res, next) => {
+  return res.send(req.auth)
 })
 
-server.use(jwt({ secret: CONFIG.service.auth.secret }).unless({
+server.post('/api/auth', (req, res, next) => {
+  return next(new errors.UnauthorizedError())
+})
+
+server.use(rjwt(CONFIG.jwt).unless({
   path: [
     { url: '/api/auth/status', methods: ['GET'] },
     { url: '/api/auth', methods: ['POST'] }

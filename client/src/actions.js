@@ -1,7 +1,7 @@
 import Config from './config'
 import * as types from './constants/ActionTypes'
 import Store from './store'
-
+import 'cross-fetch/polyfill';
 
 function _getState() {
     return Store.getState()
@@ -24,6 +24,7 @@ export function stopLoading() {
     return {type: types.HIDE_LOADING}
 }
 
+/*
 export function requestAuth(username, password) {
     Store.dispatch(startLoading());
 
@@ -51,7 +52,7 @@ export function requestAuth(username, password) {
     //     return {type: types.LOGIN_FAILED}
     // }
 
-}
+}*/
 
 export function loginFailed() {
     return {type: types.LOGIN_FAILED}
@@ -71,4 +72,18 @@ function completeAuth(username, password) {
         return {type: types.LOGIN_FAILED}
     }
 
+}
+
+
+
+
+
+export function requestAuth(username, password) {
+  return async (dispatch, getState) => {
+    dispatch(startLoading())
+    let response = await fetch('http://localhost:8000/api/auth/status')
+    let data = await response.json()
+    dispatch({type: types.LOGIN_SUCCESS, payload: { email: data }})
+    dispatch(stopLoading())
+  }
 }

@@ -41,7 +41,7 @@ module.exports = {
     start: () => {
       const port = CONFIG.service.messenger.port
       server.listen(port, () => {
-        logger.success(`Started listening on port ${port}`)
+        logger.success(`Listening on port ${port}`)
       });
     },
     stop: () => {

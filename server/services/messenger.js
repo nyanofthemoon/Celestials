@@ -17,13 +17,15 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/messenger/status', (req, res, next) => {
-  res.send('HELO')
-  next()
+  return res.send('OK')
 })
 
 server.post('/api/messenger', (req, res, next) => {
-  res.send('@TODO')
-  next()
+  return res.send('@TODO')
+})
+
+server.get('/api/messenger', (req, res, next) => {
+  return res.send('@TODO')
 })
 
 server.use(jwt({ secret: CONFIG.service.auth.secret }).unless({
@@ -38,7 +40,7 @@ module.exports = {
     start: () => {
       const port = CONFIG.service.messenger.port
       server.listen(port, () => {
-        logger.success(`Started listening on port ${port}`)
+        logger.success(`Listening on port ${port}`)
       });
     },
     stop: () => {

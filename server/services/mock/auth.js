@@ -27,12 +27,8 @@ server.get('/api/auth/status', (req, res, next) => {
   return res.send('OK')
 })
 
-server.get('/api/auth', (req, res, next) => {
-  return res.send(req.auth)
-})
-
 server.post('/api/auth', (req, res, next) => {
-  if (req.body.email == 'guest@mail.com' && req.body.password == 'guest123') {
+  if (req.body && req.body.email == 'guest@mail.com' && req.body.password == 'guest123') {
     let token = jwt.sign({
       account: {
         id: '356A192B7913B04C54574D18C28D46E6395428AB'
@@ -43,6 +39,10 @@ server.post('/api/auth', (req, res, next) => {
   } else {
     return next(new errors.UnauthorizedError())
   }
+})
+
+server.get('/api/auth', (req, res, next) => {
+  return res.send(req.auth)
 })
 
 server.use(rjwt(CONFIG.jwt).unless({

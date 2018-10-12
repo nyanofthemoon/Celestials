@@ -26,7 +26,11 @@ server.get('/api/account/status', (req, res, next) => {
 })
 
 server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
-  next()
+  return res.send('@TODO')
+})
+
+server.get('/api/account', (req, res, next) => {
+  return res.send('@TODO')
 })
 
 server.use(rjwt(CONFIG.jwt).unless({
@@ -41,7 +45,7 @@ module.exports = {
     start: () => {
       const port = CONFIG.service.account.port
       server.listen(port, () => {
-        logger.success(`Started listening on port ${port}`)
+        logger.success(`Listening on port ${port}`)
       });
     },
     stop: () => {

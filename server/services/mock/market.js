@@ -52,10 +52,6 @@ let DATA = {
   }
 }
 
-server.get('/api/market', (req, res, next) => {
-  return res.send(DATA)
-})
-
 server.post('/api/market', (req, res, next) => {
   // of_amount   50
   // of_type  gold
@@ -69,6 +65,10 @@ server.post('/api/market', (req, res, next) => {
       'for_type': 'wood'
     }
   })
+})
+
+server.get('/api/market', (req, res, next) => {
+  return res.send(DATA)
 })
 
 server.use(rjwt(CONFIG.jwt).unless({

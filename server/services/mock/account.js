@@ -25,6 +25,12 @@ server.get('/api/account/status', (req, res, next) => {
   return res.send('OK')
 })
 
+server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
+  return res.send({
+    'id': '356A192B7913B04C54574D18C28D46E6395428AB'
+  })
+})
+
 server.get({ path: '/api/account' }, (req, res, next) => {
   return res.send({
     'id': '356A192B7913B04C54574D18C28D46E6395428AB',
@@ -43,12 +49,6 @@ server.get({ path: '/api/account' }, (req, res, next) => {
   })
 })
 
-server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
-  return res.send({
-    'id': '356A192B7913B04C54574D18C28D46E6395428AB'
-  })
-})
-
 server.use(rjwt(CONFIG.jwt).unless({
   path: [
     { url: '/api/account/status', methods: ['GET'] }
@@ -61,7 +61,7 @@ module.exports = {
     start: () => {
       const port = CONFIG.service.account.port
       server.listen(port, () => {
-        logger.success(`Started listening on port ${port}`)
+        logger.success(`Listening on port ${port}`)
       });
     },
     stop: () => {

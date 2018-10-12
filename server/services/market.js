@@ -17,13 +17,15 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/market/status', (req, res, next) => {
-  res.send('HELO')
-  next()
+  return res.send('OK')
 })
 
 server.post('/api/market', (req, res, next) => {
-  res.send('@TODO')
-  next()
+  return res.send('@TODO')
+})
+
+server.get('/api/market', (req, res, next) => {
+  return res.send('@TODO')
 })
 
 server.use(jwt({ secret: CONFIG.service.auth.secret }).unless({

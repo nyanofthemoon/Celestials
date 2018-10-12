@@ -1,7 +1,7 @@
 'use strict'
 
 const restify = require('restify')
-const jwt = require('restify-jwt-community')
+const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
 
 const Logger = require('./../logger')
@@ -28,7 +28,7 @@ server.get('/api/market', (req, res, next) => {
   return res.send('@TODO')
 })
 
-server.use(jwt({ secret: CONFIG.service.auth.secret }).unless({
+server.use(rjwt(CONFIG.jwt).unless({
   path: [
     { url: '/api/market/status', methods: ['GET'] }
   ]

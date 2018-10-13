@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
 import CircularLoader from '../components/CircularLoader'
+import Era from '../components/Era'
 import {assetLoaderCompletion, requestAuthentication, requestAccountCreation } from '../actions'
 
 
@@ -15,6 +16,7 @@ class App extends Component {
 
         const {engine, actions, player} = this.props;
         let component = null;
+        let eraComponent  = <Era/>;
 
         switch(engine.get('status')) {
             default:
@@ -35,6 +37,7 @@ class App extends Component {
         return (
             <CircularLoader show={engine.get('loading')} status={engine.get('message')} player={player.get('data')}>
                 {component}
+                {eraComponent}
             </CircularLoader>
         )
 

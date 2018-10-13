@@ -6,11 +6,9 @@ import Config from './../../config';
 import Validation from '../../../../server/validation';
 
 
-class JoinFormDialog extends Component {
+class PlayFormDialog extends Component {
     constructor(props) {
         super(props);
-        this._handleFormSubmit = this._handleFormSubmit.bind(this);
-        this._handleFormCancel = this._handleFormCancel.bind(this);
     }
 
     state = {
@@ -19,17 +17,19 @@ class JoinFormDialog extends Component {
         usernameHasErrors: false,
         passwordHasErrors: false,
         emailText: '',
-        passwordText: ''
+        passwordText: '',
+
     };
 
-    handleChange = (that, name) => event => {
+    _handleChange = (name) => event => {
+        // console.log(`name=${name} and event.target.value=${event.target.value}`)
         this.setState({
             [name]: event.target.value,
             usernameHasError: true
         });
     };
 
-    _handleFormSubmit(e) {
+    _handleFormSubmit = ()  => {
         //e.preventDefault();
         let isError = false;
         let username = this.state.email;
@@ -57,16 +57,33 @@ class JoinFormDialog extends Component {
             });
             isError = true;
         }
-
         if (!isError) {
-            this.props.handleSubmit(username, password, 'login');
+            this.props.handleSubmit(username, password);
         }
-    }
+    };
 
-    _handleFormCancel(e) {
-        this.props.handleSubmit(null, null, 'cancel');
-    }
+    _handleFormCancel = () => {
+        this.props.handleCancel();
+    };
 
+    _handleFormCaption = () => {
+
+        if (this.props.error) {
+            return (
+                <Typography variant="subtitle1">
+                    {this.props.error}
+                </Typography>
+            )
+        } else {
+            return(
+                <Typography variant="subtitle2">
+                    Please enter credentials
+                </Typography>
+            )
+
+        }
+
+    };
 
     componentDidMount() {
         if (Config.environment.isDevelopment()) {
@@ -79,6 +96,8 @@ class JoinFormDialog extends Component {
 
     }
     render() {
+
+
         return (
             <div>
                 <Dialog
@@ -88,9 +107,8 @@ class JoinFormDialog extends Component {
                     <DialogTitle id="join-form-dialog-title">Log in to Celestials</DialogTitle>
                     <DialogContent>
 
-                        <Typography variant="subtitle1">
-                            [Input your credentials to log in to Celestials]
-                        </Typography>
+
+                        {this._handleFormCaption()}
 
 
                         <TextField
@@ -100,7 +118,7 @@ class JoinFormDialog extends Component {
                                 shrink: true,
                             }}
                             value={this.state.email}
-                            onChange={this.handleChange(this, 'email')}
+                            onChange={this._handleChange('email')}
                             placeholder="you@mail.com"
                             ref="username"
                             fullWidth
@@ -118,7 +136,7 @@ class JoinFormDialog extends Component {
                                 shrink: true,
                             }}
                             value={this.state.password}
-                            onChange={this.handleChange(this, 'password')}
+                            onChange={this._handleChange('password')}
                             ref="password"
                             fullWidth
                             margin="normal"
@@ -128,10 +146,10 @@ class JoinFormDialog extends Component {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this._handleFormCancel} color="secondary">
+                        <Button variant="outlined" onClick={this._handleFormCancel} color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={this._handleFormSubmit} color="primary">
+                        <Button variant="outlined" onClick={this._handleFormSubmit} color="primary">
                             Log in
                         </Button>
                     </DialogActions>
@@ -141,4 +159,4 @@ class JoinFormDialog extends Component {
     }
 }
 
-export default JoinFormDialog;
+export default PlayFormDialog;

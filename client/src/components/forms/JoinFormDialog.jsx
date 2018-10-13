@@ -10,7 +10,7 @@ class JoinFormDialog extends Component {
     constructor(props) {
         super(props);
         this._handleFormSubmit = this._handleFormSubmit.bind(this);
-        this._handleFormCancel = this._handleFormCancel.bind(this);
+        // this._handleFormCancel = this._handleFormCancel.bind(this);
     }
 
     state = {
@@ -29,7 +29,7 @@ class JoinFormDialog extends Component {
         });
     };
 
-    _handleFormSubmit(e) {
+    _handleFormSubmit = ()  => {
         //e.preventDefault();
         let isError = false;
         let username = this.state.email;
@@ -59,13 +59,33 @@ class JoinFormDialog extends Component {
         }
 
         if (!isError) {
-            this.props.handleSubmit(username, password, 'join');
+            this.props.handleSubmit(username, password);
         }
-    }
+    };
 
-    _handleFormCancel(e) {
-        this.props.handleSubmit(null, null, 'cancel');
-    }
+    _handleFormCancel = () => {
+        this.props.handleCancel();
+    };
+
+
+    _handleFormCaption = () => {
+
+        if (this.props.error) {
+            return (
+                <Typography variant="subtitle1">
+                    {this.props.error}
+                </Typography>
+            )
+        } else {
+            return(
+                <Typography variant="subtitle2">
+                    [To join please fill form.]
+                </Typography>
+            )
+
+        }
+
+    };
 
 
     componentDidMount() {
@@ -86,10 +106,7 @@ class JoinFormDialog extends Component {
                     <DialogTitle id="join-form-dialog-title">Join the Celestials</DialogTitle>
                     <DialogContent>
 
-                        <Typography variant="subtitle1">
-                            [To join the Celestials, please enter your email address here. We will send
-                            updates occasionally.]
-                        </Typography>
+                        {this._handleFormCaption()}
 
 
                         <TextField
@@ -127,10 +144,10 @@ class JoinFormDialog extends Component {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this._handleFormCancel} color="secondary">
+                        <Button variant="outlined" onClick={this._handleFormCancel} color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={this._handleFormSubmit} color="primary">
+                        <Button variant="outlined" onClick={this._handleFormSubmit} color="primary">
                             Join
                         </Button>
                     </DialogActions>

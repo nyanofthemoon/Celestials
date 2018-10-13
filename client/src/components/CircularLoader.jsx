@@ -14,18 +14,16 @@ class CircularLoader extends Component {
 
     componentWillMount() {
 
-        // console.log(this.props)
     }
 
     renderPlayerInfo(player) {
 
-        console.log(player);
         const email = player.get('email');
 
         if (email)  {
             return ` - user: ${email}`;
         } else {
-            return ' - user: ';
+            return '';
         }
 
 

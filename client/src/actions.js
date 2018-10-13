@@ -1,17 +1,12 @@
 import 'cross-fetch/polyfill';
-import Axios from 'axios';
-import https from 'https';
 
 import Config from './config'
 import * as types from './constants/ActionTypes'
+import * as url from './constants/URL'
 import Store from './store'
 
 function _getState() {
     return Store.getState()
-}
-
-export function noop() {
-    return {type: types.NOOP}
 }
 
 export function assetLoaderCompletion(musics, sounds) {
@@ -27,80 +22,113 @@ export function stopLoading() {
     return {type: types.HIDE_LOADING}
 }
 
-/*
-export function requestAuth(username, password) {
-    Store.dispatch(startLoading());
-
-    console.log(`requesting auth to server ... with username=${username} and password=${password}`);
-
-    // result = axios.post(username, pass)
-//     if result.code != 200
-//         Store.dispatch(stopLoading())
-//         return {type: types.REQUEST_AUTH_FAILED}
-// }else {
-//     Store.dispatch(stopLoading())
-//         return {type: types.REQUEST_AUTH_SUCCESS, paylod: result.data}
-//     }
-    //setTimeout((username,password) => completeAuth(username,password), 3000);
-
-
-    const result = completeAuth(username, password);
-    return result
-
-
-
-    // if (username === 'guest@mail.com' && password === 'guest123') {
-    //     return {type: types.AUTH_SUCCESS}
-    // } else {
-    //     return {type: types.AUTH_FAILED}
-    // }
-
-}*/
-
 export function authFailed() {
-    return {type: types.AUTH_FAILED}
+    return {type: types.AUTHORIZATION_FAILED}
 }
 
 
 export function AuthSuccess() {
-    return {type: types.AUTH_SUCCESS}
-    Store.dispatch(stopLoading())
+    return {type: types.AUTHORIZATION_SUCCESS}
+    // Store.dispatch(stopLoading())
 }
 
-function completeAuth(username, password) {
-    Store.dispatch(stopLoading());
+
+export function __requestAccountCreation(username, password, callback) {
+    // Store.dispatch(stopLoading());
     if (username === 'guest@mail.com' && password === 'guest123') {
-        return {type: types.AUTH_SUCCESS, payload: { email: username }}
+        callback(null);
+        return {type: types.ACCOUNT_CREATION_SUCCESS, payload: { email: username, password: password }}
     } else {
-        return {type: types.AUTH_FAILED}
+        const errorMsg= 'User Already exist';
+        callback(errorMsg);
+        return {type: types.ACCOUNT_CREATION_FAILED}
     }
 
 }
 
-
-export function requestAuthWithFetch(username, password) {
-  return async (dispatch, getState) => {
-    dispatch(startLoading());
-    let response = await fetch('https://localhost:8000/api/auth/status');
-    let data = await response.json();
-    dispatch({type: types.AUTH_SUCCESS, payload: { email: data }});
-    dispatch(stopLoading())
-  }
-}
-
-export function requestAuthWithAxios(username, password) {
+export function requestAccountCreation(username, password, callback) {
     return async (dispatch, getState) => {
         dispatch(startLoading());
-        const agent = new https.Agent({
-            rejectUnauthorized: false
-        });
-        let response = await Axios.get('https://localhost:8000/api/auth/status', {httpsAgent: agent});
-        // let data = await response.json();
+        const url = 'https://localhost:8100/api/account';
 
-        console.log(response.data.data)
+        try {
+            let response = await fetch(url, {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                redirect: "follow",
+                body: JSON.stringify({email: username, password: password}),
+            });
+            console.log('sent');
+            if (response.ok) {
+                let result = await response.json();
+                console.log('account creation request received result:');
+                console.log(result);
+                dispatch({type: types.ACCOUNT_CREATION_SUCCESS});
+                callback(null);
+            } else {
+                console.log('Error occurs');
+                console.log(response);
+                dispatch({type: types.ACCOUNT_CREATION_FAILED});
+                callback(response.statusText)
+            }
+            dispatch(stopLoading());
+            return;
+        } catch(e) {
+            console.log('requestAccountCreation failure');
+            console.log(e.message);
+            dispatch({type: types.ACCOUNT_CREATION_FAILED, payload: { email: username }});
+            dispatch(stopLoading());
+            callback(e.message);
+            return;
+        }
 
-
-        dispatch({type: types.AUTH_SUCCESS, payload: { email: username }});
-        dispatch(stopLoading())
     }
+}
+
+
+export function requestAuthentication(username, password, callback) {
+  return async (dispatch, getState) => {
+    dispatch(startLoading());
+    const url = 'https://localhost:8000/api/auth';
+
+
+    try {
+        let response = await fetch(url, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            redirect: "follow",
+            body: JSON.stringify({email: username, password: password}),
+        });
+        console.log('sent');
+
+        if (response.ok) {
+            let result = await response.json();
+            console.log('received result:');
+            console.log(result);
+            dispatch({type: types.AUTHORIZATION_SUCCESS, payload: { email: username, token: result.data.token }})
+        } else {
+            console.log('Error occurs');
+            console.log(response);
+            dispatch({type: types.AUTHORIZATION_FAILED, payload: { status: response.statusText }});
+            callback(response.statusText)
+        }
+        dispatch(stopLoading());
+        return;
+    } catch(e) {
+        console.log('requestAuthentication failure...');
+        console.log(e.message);
+        dispatch({type: types.AUTHORIZATION_FAILED, payload: { email: username }});
+        dispatch(stopLoading());
+        callback(e.message);
+        return;
+    }
+  }
 }

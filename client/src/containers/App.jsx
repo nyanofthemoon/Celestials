@@ -3,12 +3,11 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
-import Loader from './../components/Loader'
+import Loader from '../components/Loader'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
 import CircularLoader from '../components/CircularLoader'
-import {assetLoaderCompletion, AuthSuccess, startLoading,
-    stopLoading, requestAuthWithAxios, authFailed, requestAuthWithFetch } from './../actions'
+import {assetLoaderCompletion, requestAuthentication, requestAccountCreation } from '../actions'
 
 
 class App extends Component {
@@ -24,7 +23,8 @@ class App extends Component {
                 break;
             case 'loaded':
                 component = <HomeScreen
-                    handleCompletion={actions.requestAuthWithAxios}
+                    handlePlayFormSubmission={actions.requestAuthentication}
+                    handleJoinFormSubmission={actions.requestAccountCreation}
                 />;
                 break;
             case 'connected':
@@ -53,10 +53,8 @@ function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
             assetLoaderCompletion,
-            loginCompletion: AuthSuccess,
-            startLoading,
-            stopLoading, requestAuthWithAxios, requestAuthWithFetch,
-            loginFailed: authFailed
+            requestAuthentication,
+            requestAccountCreation
         }, dispatch)
     }
 }

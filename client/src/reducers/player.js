@@ -4,8 +4,10 @@ import Config from './../config'
 import * as types from './../constants/ActionTypes'
 
 const initialState = fromJS({
+
     data: {
-        email: ''
+        email: '',
+        token: null,
     }
 });
 
@@ -13,7 +15,7 @@ const player = (state = initialState, action) => {
     let actionIsInCurrentReducer = true;
     let newState;
     switch (action.type) {
-        case (types.AUTH_SUCCESS):
+        case (types.AUTHORIZATION_SUCCESS):
             newState = fromJS(state).set('data', fromJS(action.payload));
             break;
         default:

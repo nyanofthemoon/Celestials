@@ -136,8 +136,20 @@ server.get('/api/realm', (req, res, next) => {
       }
     ],
     'god': {
-      'name': 'Howchiwawa',
+      'name': 'HowChiwawa',
+      'experience': 0,
+      'reputation': 0,
+      'last_reputation': 0,
+      'hand': [],
       'deck': []
+    },
+    'ruler': {
+      'gender': 'male',
+      'race': 'human',
+      'name': 'King Nacho the Great',
+      'generations': 0,
+      'fame': 0,
+      'last_fame': 0
     },
     'resources': {
       'gold': 0,
@@ -146,16 +158,6 @@ server.get('/api/realm', (req, res, next) => {
       'wood': 0,
       'brick': 0,
       'glass': 0
-    },
-    'ruler': {
-      'gender': 'male',
-      'race': 'human',
-      'name': 'Nacho Contreras',
-      'reputation': 0,
-      'fame': 0,
-      'last_reputation': 0,
-      'last_fame': 0,
-      'deck': []
     }
   })
 })

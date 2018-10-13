@@ -27,6 +27,15 @@ server.get('/api/era/status', (req, res, next) => {
 
 const INITIAL = new Date().getTime()
 
+server.get('/api/era/generation', (req, res, next) => {
+  return res.send({
+    'generation': 1,
+    'name': 'Generation Bugs',
+    'last': INITIAL,
+    'next': (INITIAL + (CONFIG.service.era.generationLength * CONFIG.service.era.lengthInGenerations))
+  })
+})
+
 server.get('/api/era', (req, res, next) => {
   return res.send({
     'era': 1,
@@ -38,20 +47,11 @@ server.get('/api/era', (req, res, next) => {
   })
 })
 
-server.get('/api/era/generation', (req, res, next) => {
-  return res.send({
-    'generation': 1,
-    'name': 'Generation Bugs',
-    'last': INITIAL,
-    'next': (INITIAL + (CONFIG.service.era.generationLength * CONFIG.service.era.lengthInGenerations))
-  })
-})
-
 server.use(rjwt(CONFIG.jwt).unless({
   path: [
     { url: '/api/era/status', methods: ['GET'] },
-    { url: '/api/era', methods: ['GET'] },
-    { url: '/api/era/generation', methods: ['GET'] }
+    { url: '/api/era/generation', methods: ['GET'] },
+    { url: '/api/era', methods: ['GET'] }
   ]
 }))
 

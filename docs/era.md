@@ -33,7 +33,7 @@
 - start: timestamp representing the starting time of the era
 - end: timestamp representing the ending time of the era
 - status
-  -- `CLOSED`: Era finished. Waiting before starting a new one.
+  -- `CLOSED`: Previous Era ended. Waiting for initial Generation.
   -- `OPEN`: Era is open for play.
   -- `PAUSED`: Era is open for play, but temporarily in read-only mode.
 - generations: amount of generations of the era

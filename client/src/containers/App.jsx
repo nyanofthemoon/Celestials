@@ -7,37 +7,41 @@ import Loader from '../components/Loader'
 import HomeScreen from './screens/Home'
 import GameScreen from './screens/Game'
 import CircularLoader from '../components/CircularLoader'
-import Era from '../components/Era'
-import {assetLoaderCompletion, requestAuthentication, requestAccountCreation } from '../actions'
+import {assetLoaderCompletion, requestAuthentication,
+    requestAccountCreation, requestEraInformation } from '../actions'
 
 
 class App extends Component {
     render() {
 
-        const {engine, actions, player} = this.props;
-        let component = null;
-        let eraComponent  = <Era/>;
+        const {engine, actions, player, era} = this.props;
+        let engineComponent = null;
+
 
         switch(engine.get('status')) {
             default:
             case 'loading':
-                component = <Loader handleCompletion={actions.assetLoaderCompletion}/>;
+                engineComponent = <Loader handleCompletion={actions.assetLoaderCompletion}/>;
                 break;
             case 'loaded':
-                component = <HomeScreen
+                engineComponent = <HomeScreen
                     handlePlayFormSubmission={actions.requestAuthentication}
                     handleJoinFormSubmission={actions.requestAccountCreation}
+                    handleRequestForEraInformation={actions.requestEraInformation}
+                    era={era}
                 />;
+
+
                 break;
             case 'connected':
-                component = <GameScreen />;
+                engineComponent = <GameScreen era={era} player={player}/>;
+
                 break;
         }
 
         return (
             <CircularLoader show={engine.get('loading')} status={engine.get('message')} player={player.get('data')}>
-                {component}
-                {eraComponent}
+                {engineComponent}
             </CircularLoader>
         )
 
@@ -48,7 +52,8 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        player: state.player
+        player: state.player,
+        era: state.era
     }
 }
 
@@ -57,7 +62,8 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators({
             assetLoaderCompletion,
             requestAuthentication,
-            requestAccountCreation
+            requestAccountCreation,
+            requestEraInformation
         }, dispatch)
     }
 }

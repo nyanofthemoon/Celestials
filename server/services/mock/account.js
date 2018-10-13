@@ -1,6 +1,7 @@
 'use strict';
 
 const restify = require('restify');
+const errors = require('restify-errors')
 const restifyPlugins = require('restify').plugins;
 const rjwt = require('restify-jwt-community');
 const validator = require('restify-joi-middleware');
@@ -26,10 +27,14 @@ server.get('/api/account/status', (req, res, next) => {
 });
 
 server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {
+    if (req.body && req.body.email == 'guest@mail.com' && req.body.password == 'guest123') {
+        return res.send({
+            'id': '356A192B7913B04C54574D18C28D46E6395428AB'
+        })
+    } else {
+        return next(new errors.ConflictError())
+    }
 
-  return res.send({
-    'id': '356A192B7913B04C54574D18C28D46E6395428AB'
-  })
 });
 
 server.get({ path: '/api/account' }, (req, res, next) => {

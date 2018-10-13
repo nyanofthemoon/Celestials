@@ -68,14 +68,16 @@ export function requestAccountCreation(username, password, callback) {
                 console.log('account creation request received result:');
                 console.log(result);
                 dispatch({type: types.ACCOUNT_CREATION_SUCCESS});
-                callback(null);
+                callback(null); // to close Join dialog
             } else {
                 console.log('Error occurs');
                 console.log(response);
                 dispatch({type: types.ACCOUNT_CREATION_FAILED});
                 callback(response.statusText)
+                return;
             }
             dispatch(stopLoading());
+            dispatch(requestAuthentication(username, password, callback));
             return;
         } catch(e) {
             console.log('requestAccountCreation failure');

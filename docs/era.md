@@ -32,12 +32,17 @@
 ###### Returns the current era information.
 - start: timestamp representing the starting time of the era
 - end: timestamp representing the ending time of the era
+- status
+  -- `CLOSED`: Era finished. Waiting before starting a new one.
+  -- `OPEN`: Era is open for play.
+  -- `PAUSED`: Era is open for play, but temporarily in read-only mode.
 - generations: amount of generations of the era
 ```javascript
 {
   "status": "success",
   "data": {
     "era": 1,
+    "status": "OPEN",
     "name": "Era of Debugging",
     "generations": 30,
     "start": 1539272065585,

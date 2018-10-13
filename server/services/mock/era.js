@@ -31,6 +31,7 @@ server.get('/api/era', (req, res, next) => {
   return res.send({
     'era': 1,
     'name': 'Era of Debugging',
+    'status': 'OPEN',
     'generations': CONFIG.service.era.lengthInGenerations,
     'last': INITIAL,
     'next': (INITIAL + CONFIG.service.era.generationLength)

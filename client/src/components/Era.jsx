@@ -8,15 +8,41 @@ class Era extends Component {
     }
 
     state = {
-        status: null
+        status: ''
     };
 
+    _renderEraState = () => {
+        if (this.state.status) {
+            return (this.state.status);
+        } else {
+            return ('Era component');
+        }
+    };
+
+    _renderEraStore = () => {
+
+        //this.props.
+
+        if (this.state.status) {
+            return (this.state.status);
+        } else {
+            return ('Era component');
+        }
+    };
+
+    componentWillMount() {
+        // this._handleRequestEraInformation(this.props);
+    }
+
+    componentDidMount() {
+        console.log(this.props.era)
+    }
 
     render() {
         return (
             <div>
                 <br/>
-                <Typography variant={"caption"}>Era component</Typography>
+                <Typography variant={"caption"}>{this._renderEraState()}</Typography>
                 <br/>
             </div>
         )

@@ -3,6 +3,7 @@ import { Button, Typography } from '@material-ui/core'
 
 import JoinFormDialog from '../../components/forms/JoinFormDialog';
 import PlayFormDialog from '../../components/forms/PlayFormDialog';
+import Era from '../../components/Era';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -20,6 +21,14 @@ class HomeScreen extends Component {
         playFormErrorMessage: null,
     };
 
+    componentDidMount() {
+        // dispatch request for era info
+        this.props.handleRequestForEraInformation();
+        // pass down to Era component
+        console.log('Home - props');
+        console.log(this.props);
+    }
+
     togglePlayFormDialog = () => {
         this.setState({
             playFormDialogOpen: !this.state.playFormDialogOpen
@@ -33,8 +42,6 @@ class HomeScreen extends Component {
     };
 
     handleJoinFormSubmit = (username, password) => {
-        //@TODO :D
-        var that  = this;
         console.log(`handleJoinFormSubmit with username ${username} and password '${password}'`);
 
         this.props.handleJoinFormSubmission(username, password, (error) => {
@@ -59,41 +66,7 @@ class HomeScreen extends Component {
                 playFormErrorMessage: error
             })
         });
-        //this.togglePlayFormDialog();
     };
-
-/*
-    handleSubmit = (username, password, action) => {
-        var that  = this;
-        console.log(`${action} with username ${username} and password '${password}'`);
-
-        switch (action) {
-            case 'login':
-                //@TODO connect to api auth to validate
-
-                that.props.handlePlayFormSubmission(username, password, (error) => {
-                    that.setState({
-                        playFormErrorMessage: error
-                    })
-                });
-                console.log('AM I waiting for the result ?');
-                break;
-            case 'join':
-                console.log('joining in the Celestials');
-                //@TODO connect to api to register
-                //that.props.handleJoinFormSubmission(username, password, (error) => { @TODO });
-                break;
-            case 'cancel':
-                this.setState({
-                        joinFormDialogOpen: false,
-                        playFormDialogOpen: false
-                    });
-            default:
-                break;
-
-        }
-    };
-*/
 
     render() {
         return (
@@ -123,6 +96,16 @@ class HomeScreen extends Component {
                     handleSubmit={this.handlePlayFormSubmit}
                 >
                 </PlayFormDialog>
+
+                <Era era={this.props.era}
+
+
+
+                >
+
+                </Era>
+
+
             </div>
         );
     }

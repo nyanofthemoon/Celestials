@@ -134,3 +134,44 @@ export function requestAuthentication(username, password, callback) {
     }
   }
 }
+
+export function requestEraInformation() {
+    return async (dispatch, getState) => {
+        dispatch(startLoading());
+        let payload = {
+            era: 1,
+            name: "Era of Debugging",
+            status: "OPEN",
+            generations: 30,
+            last: 1539463751897,
+            next: 1539463837897
+        };
+
+
+        dispatch( {type: types.REQUEST_ERA_INFORMATION, payload });
+        if (payload.status !== 'CLOSED') {
+            dispatch(_requestEraGeneration());
+
+        } else {
+            dispatch(stopLoading());
+        }
+
+        return;
+    }
+}
+
+function _requestEraGeneration() {
+    return async (dispatch, getState) => {
+        dispatch(startLoading());
+        let payload = {
+            "generation": 1,
+            "name": "Generation Bugs",
+            "last": 1539464004126,
+            "next": 1539466584126
+        };
+        dispatch(stopLoading());
+        dispatch( {type: types.REQUEST_ERA_GENERATION, payload });
+        return;
+    }
+}
+

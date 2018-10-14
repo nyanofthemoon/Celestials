@@ -21,6 +21,14 @@ const validate = {
         password: Joi.string().required().min(5).max(32)
       }
   }},
+  market: {
+    schema: {
+      body: {
+        of_amount: Joi.number().integer().required().min(1),
+        of_type: Joi.string().required().valid(['gold', 'food', 'wood', 'brick', 'ore', 'glass']),
+        for_type: Joi.string().required().valid(['gold', 'food', 'wood', 'brick', 'ore', 'glass'])
+      }
+  }},
 
 
 

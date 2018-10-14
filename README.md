@@ -4,6 +4,9 @@
 - Create a self-signed certificate in `server` directory
 - `openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.crt`
 
+### Documentation
+- https://github.com/restify/errors
+
 ##### Auth Service
 - [API Documentation](docs/auth.md)
 - Authentication and identification to other services using JWT.

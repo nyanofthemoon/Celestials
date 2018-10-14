@@ -1,6 +1,7 @@
 'use strict'
 
 const restify = require('restify')
+const errors = require('restify-errors')
 const restifyPlugins = require('restify').plugins
 const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
@@ -30,43 +31,44 @@ server.get('/api/market/status', (req, res, next) => {
 });
 
 let DATA = {
-  "food": {
-    "stock": 4250,
-    "value": 1
+  'food': {
+    'stock': 4250,
+    'value': 1
   },
-  "gold": {
-    "stock": 250,
-    "value": 20
+  'gold': {
+    'stock': 250,
+    'value': 20
   },
-  "wood": {
-    "stock": 125,
-    "value": 40
+  'wood': {
+    'stock': 125,
+    'value': 40
   },
-  "brick": {
-    "stock": 85,
-    "value": 50
+  'brick': {
+    'stock': 85,
+    'value': 50
   },
-  "ore": {
-    "stock": 50,
-    "value": 100
+  'ore': {
+    'stock': 50,
+    'value': 100
   },
-  "glass": {
-    "stock": 25,
-    "value": 200
+  'glass': {
+    'stock': 25,
+    'value': 200
   }
 }
 
-server.post('/api/market', (req, res, next) => {
-  // of_amount   50
-  // of_type  gold
-  // for_type wood
+server.post({ path: '/api/market', validation: validation.market }, (req, res, next) => {
+  if (req.body.of_type == req.body.for_type) {
+    return next(new errors.BadRequestError())
+  }
+
   return res.send({
     'status': 'success',
     'data': {
-      'of_amount': 50,
-      'of_type': 'gold',
-      'for_amount': 25,
-      'for_type': 'wood'
+      'of_amount': req.body.of_amount,
+      'of_type':  req.body.of_type,
+      'for_type': req.body.for_type,
+      'for_amount': 100,
     }
   })
 })

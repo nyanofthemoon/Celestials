@@ -25,6 +25,15 @@ server.get('/api/realm/status', (req, res, next) => {
   return res.send('OK')
 })
 
+const SHUFFLE = [
+  {'desert': 2, 'field': 3, 'forest': 3, 'lake': 0, 'mountain': 2},
+  {'desert': 1, 'field': 3, 'forest': 1, 'lake': 2, 'mountain': 1},
+  {'desert': 3, 'field': 2, 'forest': 2, 'lake': 1, 'mountain': 1}
+]
+server.post('/api/realm/shuffle', (req, res, next) => {
+  return res.send(SHUFFLE[Math.floor(Math.random() * SHUFFLE.length)])
+})
+
 server.get('/api/realm', (req, res, next) => {
   return res.send({
     'id': '17BA0791499DB908433B80F37C5FBC89B870084B',
@@ -33,6 +42,30 @@ server.get('/api/realm', (req, res, next) => {
     'name': 'Land of Chiwawas',
     'x': 0,
     'y': 0,
+    'god': {
+      'name': 'HowChiwawa',
+      'powers': {
+        'deck_size': 5
+      },
+      'hand': [],
+      'deck': []
+    },
+    'ruler': {
+      'gender': 'male',
+      'race': 'human',
+      'name': 'King Nacho the Great',
+      'generations': 0,
+      'fame': 0,
+      'last_fame': 0
+    },
+    'resources': {
+      'gold': 0,
+      'food': 0,
+      'ore': 0,
+      'wood': 0,
+      'brick': 0,
+      'glass': 0
+    },
     'counties': [
       {
         'id': '28C27031FE7162D732A1C2E209A40BBFCB5FEF90',
@@ -56,7 +89,8 @@ server.get('/api/realm', (req, res, next) => {
           'desert': 0
         },
         'last': {
-          'happiness': 50
+          'happiness': 50,
+          'population': 1100
         }
       },
       {
@@ -81,7 +115,8 @@ server.get('/api/realm', (req, res, next) => {
           'desert': 0
         },
         'last': {
-          'happiness': 0
+          'happiness': 0,
+          'population': 0
         }
       },
       {
@@ -106,7 +141,8 @@ server.get('/api/realm', (req, res, next) => {
           'desert': 0
         },
         'last': {
-          'happiness': 0
+          'happiness': 0,
+          'population': 0
         }
       },
       {
@@ -131,34 +167,11 @@ server.get('/api/realm', (req, res, next) => {
           'desert': 0
         },
         'last': {
-          'happiness': 0
+          'happiness': 0,
+          'population': 0
         }
       }
-    ],
-    'god': {
-      'name': 'HowChiwawa',
-      'experience': 0,
-      'reputation': 0,
-      'last_reputation': 0,
-      'hand': [],
-      'deck': []
-    },
-    'ruler': {
-      'gender': 'male',
-      'race': 'human',
-      'name': 'King Nacho the Great',
-      'generations': 0,
-      'fame': 0,
-      'last_fame': 0
-    },
-    'resources': {
-      'gold': 0,
-      'food': 0,
-      'ore': 0,
-      'wood': 0,
-      'brick': 0,
-      'glass': 0
-    }
+    ]
   })
 })
 

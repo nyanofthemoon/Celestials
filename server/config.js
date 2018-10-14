@@ -65,6 +65,22 @@ const corsOrigins = () => {
 }
 const CORS_ORIGINS = corsOrigins()
 
+const CAPITAL_STARTERS = [
+  {'desert': 0, 'field': 1, 'forest': 2, 'lake': 0, 'mountain': 2},
+  {'desert': 1, 'field': 1, 'forest': 2, 'lake': 0, 'mountain': 0},
+  {'desert': 0, 'field': 1, 'forest': 1, 'lake': 1, 'mountain': 0},
+]
+const COUNTY_STARTERS = [
+  {'desert': 0, 'field': 0, 'forest': 1, 'lake': 0, 'mountain': 1},
+  {'desert': 1, 'field': 0, 'forest': 1, 'lake': 0, 'mountain': 0},
+  {'desert': 0, 'field': 1, 'forest': 0, 'lake': 0, 'mountain': 1},
+  {'desert': 1, 'field': 1, 'forest': 0, 'lake': 0, 'mountain': 0},
+  {'desert': 1, 'field': 0, 'forest': 0, 'lake': 0, 'mountain': 1},
+  {'desert': 0, 'field': 0, 'forest': 0, 'lake': 1, 'mountain': 0},
+  {'desert': 0, 'field': 2, 'forest': 0, 'lake': 0, 'mountain': 0},
+  {'desert': 0, 'field': 0, 'forest': 2, 'lake': 0, 'mountain': 0},
+]
+
 module.exports = {
 
     environment: {
@@ -166,6 +182,14 @@ module.exports = {
         config: {
           defaultTax: DEFAULT_TAX,
           maxTax: MAX_TAX
+        },
+        county: {
+          shuffle: (isCapital) => {
+            if (isCapital) {
+              return CAPITAL_STARTERS[Math.floor(Math.random() * CAPITAL_STARTERS.length)]
+            }
+            return COUNTY_STARTERS[Math.floor(Math.random() * COUNTY_STARTERS.length)]
+          }
         },
         maths: {
           housingSpaceBonus: housingSpaceBonus,

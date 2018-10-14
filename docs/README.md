@@ -32,6 +32,17 @@ Account
 	- gems
 	- cards in collection
 
+Purpose of the god (player loyalty)
+  - rewards
+	  -- log every day get a gem (log-in bonus)
+		-- actively played an era (30 days straight), get 20 gems
+  - experience
+		-- the more experience, the more you can choose powers
+		  -- example powers: +1 card in mystical hand
+	- trophy (special cards you cannot buy; unique cards in your collection)
+	  -- 20th war waged, you get a military card
+		-- etc.
+
 Card
 	- Card UID (unique)
 	- Card Name (unique)
@@ -43,10 +54,16 @@ Card
 	- Card Wood Casting Cost
 	- Card Brick Casting Cost
 	- Card Glass Casting Cost
+	- Card Worker Cost
+	- Card Military Cost
+	- Card Rogue Cost
+	- Card Sorcerer Cost
+	- Card Race Casting Cost (must be a human)
 		- Effects
 			- Resource creation (forest, field, etc(
 			- Resource generation (100 Gold)
 			- Population generation (100 Workers)
+
 Realm
 	- Realm UID (primary)
 	- Realm Name (unique)
@@ -225,6 +242,24 @@ Alliance NPC Behaviors
 	- Pacifist
 	- Chaotic (randomly changes every time)
 
+NPC generation
+
+-- When a player resets (at any time), that realm becomes and NPC
+  (a God will possess another ruler's body)
+-- For every new ruler created, it is surrounded by new NPC
+---------------------------------------
+PLR NPC PLR | NPC PLR NPC | PLR NPC PLR
+NPC PLR NPC | NPC PLR NPC | NPC PLR NPC
+NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
+---------------------------------------
+PLR NPC PLR | NPC PLR NPC | PLR NPC PLR
+NPC PLR NPC | NPC PLR NPC | NPC PLR NPC
+NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
+---------------------------------------
+PLR NPC PLR | NPC PLR NPC | PLR NPC PLR
+NPC PLR NPC | NPC PLR NPC | NPC PLR NPC
+NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
+---------------------------------------
 
 
 
@@ -267,6 +302,7 @@ Version 4
 
 Politics and empires
 forge and detect messages
+more Cards
 
 Bug fixes and enhacements
 
@@ -275,11 +311,13 @@ Bug fixes and enhacements
 Version 5
 
 Races
-Random Events
+Random Events ?
+more Cards
 
 ====
 
 Version 6
 
+more cards
 purchasable Relics (crystals)
 Multi Realms

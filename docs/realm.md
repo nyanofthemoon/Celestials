@@ -28,6 +28,21 @@
 }
 ```
 
+###### POST /api/realm/shuffle
+###### Returns the sum of all county resources for a realm shuffle
+```javascript
+{
+  "status": "success",
+  "data": {
+    "desert": 2,
+    "field": 3,
+    "forest": 3,
+    "lake": 0,
+    "mountain": 2
+  }
+}
+```
+
 ###### GET /api/realm
 ###### Returns realm for the associated JWT
 ```javascript

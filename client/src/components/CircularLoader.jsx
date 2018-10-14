@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { CircularProgress, Typography } from '@material-ui/core';
+import {CircularProgress, IconButton, Typography} from '@material-ui/core';
+import * as Icons from "./Icons";
 
 
 class CircularLoader extends Component {
@@ -39,6 +40,46 @@ class CircularLoader extends Component {
                        <CircularProgress size={250} />
                    </div>
                    <Typography variant={"caption"}>{this.props.status}{this.renderPlayerInfo(this.props.player)}</Typography>
+                   <Icons.Brick/>
+                   <Icons.City/>
+                   <Icons.Desert/>
+                   <Icons.Field/>
+                   <Icons.Food/>
+                   <Icons.Forest/>
+                   <br/>
+                   <Icons.Gem/>
+                   <Icons.Gems/>
+                   <Icons.Glass/>
+                   <Icons.Hamlet/>
+                   <Icons.Help/>
+                   <Icons.Lake/>
+                   <Icons.Map/>
+                   <Icons.Market/>
+                   <br/>
+                   <Icons.Messengers/>
+                   <Icons.Metropolis/>
+                   <Icons.Military/>
+                   <Icons.Mountain/>
+                   <Icons.Ore/>
+                   <Icons.Politics/>
+                   <Icons.Realm/>
+                   <Icons.Rogue/>
+                   <Icons.Roguery/>
+                   <br/>
+                   <Icons.Sorcerer/>
+                   <Icons.Sorcery/>
+                   <Icons.Tax/>
+                   <Icons.Town/>
+                   <Icons.Village/>
+                   <Icons.Warfare/>
+                   <Icons.Wood/>
+                   <Icons.Worker/>
+
+                   <br/>
+                   <IconButton >
+                       <Icons.Brick  />
+                   </IconButton>
+
                </div>
 
             );

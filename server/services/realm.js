@@ -17,7 +17,11 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/realm/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': false,
+    'version': '1.0.0'
+  })
 })
 
 server.post('/api/realm', (req, res, next) => {

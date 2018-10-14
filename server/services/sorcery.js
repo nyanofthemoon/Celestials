@@ -17,7 +17,11 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/sorcery/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': false,
+    'version': '1.0.0'
+  })
 })
 
 server.get('/api/sorcery', (req, res, next) => {
@@ -26,8 +30,7 @@ server.get('/api/sorcery', (req, res, next) => {
 
 server.use(rjwt(CONFIG.jwt).unless({
   path: [
-    { url: '/api/sorcery/status', methods: ['GET'] },
-    { url: '/api/sorcery', methods: ['GET'] }
+    { url: '/api/sorcery/status', methods: ['GET'] }
   ]
 }))
 

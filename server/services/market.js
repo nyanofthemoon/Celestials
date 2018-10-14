@@ -17,7 +17,11 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/market/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': false,
+    'version': '1.0.0'
+  })
 })
 
 server.post('/api/market', (req, res, next) => {

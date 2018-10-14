@@ -24,6 +24,10 @@
 ```javascript
 {
   "status": "success",
-  "data": "OK"
+  "data": {
+    "status": "OK",
+    "mock": false,
+    "version": "1.0.0"
+  }
 }
 ```

@@ -13,8 +13,11 @@ const server = restify.createServer({
 })
 
 server.get('/*', (req, res, next) => {
-  res.send('OK')
-  next()
+  return res.send({
+    'status': 'OK',
+    'mock': true,
+    'version': '1.0.0'
+  })
 });
 
 module.exports = {

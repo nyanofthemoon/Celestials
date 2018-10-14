@@ -17,7 +17,15 @@ server.use(restify.plugins.gzipResponse())
 server.use(validator())
 
 server.get('/api/roguery/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': false,
+    'version': '1.0.0'
+  })
+})
+
+server.post('/api/roguery', (req, res, next) => {
+  return res.send('@TODO')
 })
 
 server.get('/api/roguery', (req, res, next) => {
@@ -26,8 +34,7 @@ server.get('/api/roguery', (req, res, next) => {
 
 server.use(rjwt(CONFIG.jwt).unless({
   path: [
-    { url: '/api/roguery/status', methods: ['GET'] },
-    { url: '/api/roguery', methods: ['GET'] }
+    { url: '/api/roguery/status', methods: ['GET'] }
   ]
 }))
 

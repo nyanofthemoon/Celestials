@@ -22,7 +22,11 @@ server.use(validator())
 server.use(restifyPlugins.gzipResponse())
 
 server.get('/api/roguery/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': true,
+    'version': '1.0.0'
+  })
 })
 
 server.get('/api/roguery', (req, res, next) => {

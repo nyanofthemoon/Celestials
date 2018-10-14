@@ -22,7 +22,11 @@ server.use(validator())
 server.use(restifyPlugins.gzipResponse())
 
 server.get('/api/account/status', (req, res, next) => {
-  return res.send('OK')
+  return res.send({
+    'status': 'OK',
+    'mock': false,
+    'version': '1.0.0'
+  })
 })
 
 server.post({ path: '/api/account', validation: validation.account }, (req, res, next) => {

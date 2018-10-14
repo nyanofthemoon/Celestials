@@ -321,3 +321,9 @@ Version 6
 more cards
 purchasable Relics (crystals)
 Multi Realms
+
+
+====
+Optimizing icons for inlining them:
+ `npx svgo *.svg`
+ 

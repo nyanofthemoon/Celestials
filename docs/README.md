@@ -234,8 +234,6 @@ Option #8
   - 2 forest
 
 
-
-
 Alliance NPC Behaviors
 	- Agressive
 	- Neutral
@@ -246,7 +244,7 @@ NPC generation
 
 -- When a player resets (at any time), that realm becomes and NPC
   (a God will possess another ruler's body)
--- For every new ruler created, it is surrounded by new NPC
+-- For every new ruler created, it is surrounded by new NPC county
 ---------------------------------------
 PLR NPC PLR | NPC PLR NPC | PLR NPC PLR
 NPC PLR NPC | NPC PLR NPC | NPC PLR NPC
@@ -260,6 +258,17 @@ PLR NPC PLR | NPC PLR NPC | PLR NPC PLR
 NPC PLR NPC | NPC PLR NPC | NPC PLR NPC
 NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
 ---------------------------------------
+
+*** Every Generation
+- randomly create NPCs for "discovered" empty spaces
+- max NPCs equal amount of players
+
+*** Every Realm Creation ; World Limits
+- Do we expand the world?
+  Map Size should be Math.ceil(Math.sqrt(AMOUNT_OF_PLAYER_REALMS_EVEN-IF-THEY-ARE-NOW-NPCS*2))
+	If not, expand boundaries from (-X-1) to (X+1) and (-Y-1) to (Y+1)
+
+
 
 
 

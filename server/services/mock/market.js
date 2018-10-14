@@ -68,7 +68,7 @@ server.post({ path: '/api/market', validation: validation.market }, (req, res, n
       'of_amount': req.body.of_amount,
       'of_type':  req.body.of_type,
       'for_type': req.body.for_type,
-      'for_amount': 100,
+      'for_amount': 100
     }
   })
 })

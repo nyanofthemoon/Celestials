@@ -7,6 +7,8 @@
 ### Documentation
 - https://github.com/restify/errors
 
+### Contributing
+
 ##### Auth Service
 - [API Documentation](docs/auth.md)
 - Authentication and identification to other services using JWT.

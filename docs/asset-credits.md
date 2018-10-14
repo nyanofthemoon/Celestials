@@ -81,3 +81,23 @@ glass			https://www.flaticon.com/free-icon/wine_1150318
 https://www.flaticon.com/packs/desert-19
 
 ore			https://www.flaticon.com/free-icon/mine_1171207
+
+-
+
+card    https://www.flaticon.com/free-icon/book_815944
+deck    https://www.flaticon.com/free-icon/tarot_815946#term=tarot&page=1&position=5
+
+-
+
+https://www.flaticon.com/packs/magic-13
+
+spells
+
+Sight   https://www.flaticon.com/free-icon/eye_867911
+
+
+
+--
+
+@TODO Potential Races
+https://www.flaticon.com/packs/fantasy-character-2

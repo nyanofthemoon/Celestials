@@ -175,6 +175,9 @@ server.get('/api/realm', (req, res, next) => {
           'population': 0
         }
       }
+    ],
+    'world': [
+      
     ]
   })
 })

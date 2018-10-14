@@ -24,6 +24,10 @@ server.get('/api/sorcery/status', (req, res, next) => {
   })
 })
 
+server.post('/api/sorcery', (req, res, next) => {
+  return res.send('@TODO')
+})
+
 server.get('/api/sorcery', (req, res, next) => {
   return res.send('@TODO')
 })

@@ -69,10 +69,18 @@
         "tax": 10,
         "housing": 1,
         "population": {
-          "worker": 1000,
-          "military": 100,
-          "rogue": 0,
-          "sorcerer": 0
+          "available": {
+            "worker": 1000,
+            "military": 100,
+            "rogue": 0,
+            "sorcerer": 0
+          },
+          "busy": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          }
         },
         "resources": {
           "forest": 0,
@@ -81,8 +89,10 @@
           "mountain": 0,
           "desert": 0
         },
+        "constructions": {},
         "last": {
-          "happiness": 50
+          "happiness": 50,
+          "population": 0
         }
       },
       {
@@ -94,10 +104,18 @@
         "tax": 0,
         "housing": 0,
         "population": {
-          "worker": 0,
-          "military": 0,
-          "rogue": 0,
-          "sorcerer": 0
+          "available": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          },
+          "busy": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          }
         },
         "resources": {
           "forest": 0,
@@ -106,8 +124,10 @@
           "mountain": 0,
           "desert": 0
         },
+        "constructions": {},
         "last": {
-          "happiness": 0
+          "happiness": 0,
+          "population": 0
         }
       },
       {
@@ -119,10 +139,18 @@
         "tax": 0,
         "housing": 0,
         "population": {
-          "worker": 0,
-          "military": 0,
-          "rogue": 0,
-          "sorcerer": 0
+          "available": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          },
+          "busy": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          }
         },
         "resources": {
           "forest": 0,
@@ -131,8 +159,10 @@
           "mountain": 0,
           "desert": 0
         },
+        "constructions": {},
         "last": {
-          "happiness": 0
+          "happiness": 0,
+          "population": 0
         }
       },
       {
@@ -144,10 +174,18 @@
         "tax": 0,
         "housing": 0,
         "population": {
-          "worker": 0,
-          "military": 0,
-          "rogue": 0,
-          "sorcerer": 0
+          "available": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          },
+          "busy": {
+            "worker": 0,
+            "military": 0,
+            "rogue": 0,
+            "sorcerer": 0
+          }
         },
         "resources": {
           "forest": 0,
@@ -156,8 +194,10 @@
           "mountain": 0,
           "desert": 0
         },
+        "constructions": {},
         "last": {
-          "happiness": 0
+          "happiness": 0,
+          "population": 0
         }
       }
     ],

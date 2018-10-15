@@ -37,16 +37,25 @@ metropolis	https://www.flaticon.com/free-icon/castle_1043546
 
 
 military	https://www.flaticon.com/free-icon/knight_1043535
-rogue		https://www.flaticon.com/free-icon/executioner_1043579
 
 ——
 
 https://www.flaticon.com/packs/fantasy-13
 
 sorcerers	https://www.flaticon.com/free-icon/wizard_1137141
-worker		https://www.flaticon.com/free-icon/medusa_1137137
 
 —
+
+https://www.flaticon.com/packs/people-avatars-2
+
+rogue https://www.flaticon.com/free-icon/hood_169914
+
+
+https://www.flaticon.com/packs/agriculture-linecolor-2-de-2
+worker https://www.flaticon.com/free-icon/farmer_498231
+
+--
+
 
 https://www.flaticon.com/packs/jewelry-4
 
@@ -91,13 +100,65 @@ deck    https://www.flaticon.com/free-icon/tarot_815946#term=tarot&page=1&positi
 
 https://www.flaticon.com/packs/magic-13
 
-spells
+@TODO spells
 
-Sight   https://www.flaticon.com/free-icon/eye_867911
+ROUND: https://www.flaticon.com/packs/magic-18
+https://www.flaticon.com/search?word=magic&style_id=9
+https://www.flaticon.com/search?word=disaster&style_id=9
+https://www.flaticon.com/search?word=farm&style_id=9
+https://www.flaticon.com/search?word=sky&style_id=9
+https://www.flaticon.com/search?word=forest&style_id=9
+https://www.flaticon.com/search?word=mountain&style_id=9
+https://www.flaticon.com/search?word=desert&style_id=9
+https://www.flaticon.com/search?word=lake&style_id=9
+https://www.flaticon.com/search?word=landscape&style_id=9
+https://www.flaticon.com/search?word=potion&style_id=9
+https://www.flaticon.com/search?word=herbs&color=2&style_id=9
+https://www.flaticon.com/search?word=wind&color=2&style_id=9
 
+--- @TODO rogue operations
 
+ROUND: https://www.flaticon.com/packs/halloween-7
+https://www.flaticon.com/search?word=weapon&style_id=9
+https://www.flaticon.com/search?word=pirate&style_id=9
+https://www.flaticon.com/search?word=death&style_id=9
+https://www.flaticon.com/search?word=money&style_id=9
+https://www.flaticon.com/search?word=dagger&style_id=9
+https://www.flaticon.com/search?word=potion&style_id=9
+https://www.flaticon.com/search?word=archery&color=2&style_id=9
+https://www.flaticon.com/search?word=poison&color=2&style_id=9
+
+---
+
+@TODO WARFARE
+
+ROUND: https://www.flaticon.com/search?word=medieval&style_id=9&license=selection&order_by=1&color=2
+https://www.flaticon.com/search?word=medieval&style_id=9
+https://www.flaticon.com/search?word=weapon&style_id=9
+https://www.flaticon.com/search?word=sword&color=2&style_id=9
+https://www.flaticon.com/search?word=armor&color=2&style_id=9
+https://www.flaticon.com/search?word=shield&color=2&style_id=9
+https://www.flaticon.com/search?word=helmet&color=2&style_id=9
+https://www.flaticon.com/search?word=horse&color=2&style_id=9
 
 --
 
 @TODO Potential Races
 https://www.flaticon.com/packs/fantasy-character-2
+https://www.flaticon.com/packs/fantasy-character-3
+
+---
+
+@TODO God avatars
+
+https://www.flaticon.com/packs/hindu-god-2
+https://www.flaticon.com/packs/fantasy-character-2
+https://www.flaticon.com/packs/fantasy-character-3
+https://www.flaticon.com/packs/game-characters
+
+
+---
+https://www.flaticon.com/packs/halloween-costume-avatars
+
+death https://www.flaticon.com/free-icon/death_1139509
+help owl https://www.flaticon.com/free-icon/owl_1139507

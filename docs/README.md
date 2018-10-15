@@ -70,8 +70,8 @@ Realm
 	- Ruler Name
 	- Ruler Gender
 	- Ruler Race (Human)
-	- Current Ruler Reputation (hidden until end of Round; show up or down arrow compared to last value)
-	- Current  Ruler Fame (hidden until end of Round; show up or down arrow compared to last value)
+	- Current and Last Ruler Reputation (hidden until end of Round; show up or down arrow compared to last value)
+	- Current and Last Ruler Fame (hidden until end of Round; show up or down arrow compared to last value)
 	- Ruler Fame at End of Last Turn (hidden until end of Round)
 	- Ruler Reputation at End of Last Turn (hidden until end of Round)
 	- Ruler Mystical Deck
@@ -167,19 +167,18 @@ TRPM = Tax Rate Productivity Modifiers	(0.5 to 1.0)
 Happiness			(PB + FB + TRHM) / 100	(is a %)
 Productivity			TRPM			(is a %)
 Worker Growth			Workers    * Happiness
-Gold Generation			Workers/1  * Productivity * (tax_rate/100)
-Food Generation			Workers/1  * Productivity * (tax_rate/100) * (10*Lakes + 5*Fields + 2*Forests))
-Wood Generation			Workers/2  * Productivity * (tax_rate/100) * (1*Forests)
-Brick Generation		Workers/3  * Productivity * (tax_rate/100) * (1*Fields)
-Ore Generation			Workers/5  * Productivity * (tax_rate/100) * (1*Mountains)
-Glass Generation		Workers/10 * Productivity * (tax_rate/100) * (1*Deserts)
+Gold Generation			(Workers/1 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) *
+Food Generation			(Workers/1 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) * (10*Lakes+5*Fields +2*Forests))
+Wood Generation			(Workers/2 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) * (1*Forests)
+Brick Generation		(Workers/3 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) * (1*Fields)
+Ore Generation			(Workers/5 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) * (1*Mountains)
+Glass Generation		(Workers/10 - [RogueOperations] + [ConstructionBonus]) * Productivity * (tax_rate/100) * (1*Deserts)
 
 Desert   = 800  .10
 Mountain = 1000  .5
 Lake	 = 500   10
 Field	 = 600   5.3
 Forest	 = 400   2.5
-
 
 [ Round Initial Market Value ] 100
 Food  Stock(4250) %(88.88) = 1
@@ -263,11 +262,29 @@ NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
 - randomly create NPCs for "discovered" empty spaces
 - max NPCs equal amount of players
 
+*** Player resets
+- player can reset at any time
+-- realm will become an NPC
+-- messenger messages will be erased to save memory
+
 *** Every Realm Creation ; World Limits
 - Do we expand the world?
   Map Size should be Math.ceil(Math.sqrt(AMOUNT_OF_PLAYER_REALMS_EVEN-IF-THEY-ARE-NOW-NPCS*2))
 	If not, expand boundaries from (-X-1) to (X+1) and (-Y-1) to (Y+1)
 
+===
+
+What is persisted in memory ?
+- account information (god, decks, cards)
+- previous era information (name, number, results)
+- market trends per era and generation
+
+What is not persisted in memory ?
+- world map, circular deck shuffling
+- rulers, realms and counties
+- messenger messages
+-
+
 
 
 
@@ -275,64 +292,104 @@ NPC PLR NPC | PLR NPC PLR | NPC PLR NPC
 
 ====
 
+
+
+
+
+
 Version 2
 
-Deployment Stack (Production)
+Race Bonus System
+Race #2 (for NPC only)
 
-Rogues
-Sorcerers
+Automated Era process (scheduled task?)
+Automated Generation process (scheduled task?)
 
-Home Container
-  - anonymous feedback form
-  - option to recover lost password
-
-Create Container on Realm Creation Step:
-  - click on county to see its details
-  - option to click on mulligan only once and reshuffle the capital and county generation
-
+Construction System
+Complete Rogues
+Complete Sorcerers
 
 ====
 
 Version 3
 
-More Cards!
- - crystals
- - Account bound Card Collections
- - Store card collections to buy
+Race #2 (for both NPC and Player)
 
-Home Container
-  - option to join and login using google account (oauth)
+Buy Cards and build Decks! The Gem Store
 
-Bug fixes and enhacements
+Improve UI
+
+Build Wonders (development card in Cathan, Wonders in 7Wonders)
+Market Trends (from era generation to era)
 
 ====
 
 Version 4
 
-Politics and empires
-forge and detect messages
-more Cards
+Race #3 (for NPC only)
+More Cards! The Gem Store
 
-Bug fixes and enhacements
+Messengers forge and detect forged messages
+
+IRC or XMPP Server for people to communication (the name is linked to ruler and realm)
+ - Marketplace Chat (Merchant of Realm)
+
+Politics and Empires
+  - set one of my realm counties as blockade (only allies can pass)
+	  -- cannot wage war for this generation
+		-- enemy blocked can choose to cancel (busy units)
+		-- enemy blocked can choose to continue (will lose units before going against the protected)
+		-- create a legendary card to "fly over a blockade"
+		-- create a rare card to "catapult over a blockade but lose 10%"
+		-- create a rare card to "sacrifice units" to pass through the void
+	- send aid to an allied realm's county
+	  -- these units will die before the protected realm's units
+		-- can only get aid from 1 ally per generation per county
+	- siege an enemy county (once you win)
+	  -- ruler has to defeat them all to reclaim the resource gains
+		  -- or allied
+		-- can only get sieged by 1 enemy per generation per county
+  - Bounties
+	 -- Only NPC you annoy can also put bounties on you
 
 ====
 
 Version 5
 
-Races
-Random Events ?
-more Cards
+Race #3 (for both NPC and Player)
+More Cards! The Gem Store
+
+Improve UI
+
+Purchasable Relics (lasts only one Era)
+God Powers and Experience
+
+Politics and Empires
+- Bounties
+ -- NPC and players can place bounties
 
 ====
 
-Version 6
+Version 6 - Official Beta Release
 
-more cards
-purchasable Relics (crystals)
-Multi Realms
+More Cards! The Gem Store
+More Relics! The Gem Store
+
+Deployment Stack (Production)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ====
 Optimizing icons for inlining them:
  `npx svgo *.svg`
- 

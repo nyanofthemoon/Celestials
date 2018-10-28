@@ -14,7 +14,7 @@ const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 2,
         textAlign: 'center',
-        // color: theme.palette.text.secondary,
+        color: theme.palette.text.secondary,
     },
 });
 
@@ -52,22 +52,18 @@ class CircularLoader extends Component {
         const classNameToUse = this.handleAnimationClass(this.props.show);
             return(
                <div className={classes.root}>
-                   <Grid container spacing={24}>
-                       <Grid item xs={12}>
+                   <Grid container spacing={8}>
+                       <Grid item xs={1}></Grid>
+                       <Grid item xs={10}>
 
-                               {this.props.children}
+                           {this.props.children}
 
-                               <div className={classNameToUse} style={{display: 'flex',  position:'absolute', top:0, left:0, alignItems:'center', justifyContent:'center',  height:'100vh', width:'100%'}}>
-                                   <CircularProgress size={250} />
-                               </div>
-
-
+                           <div className={classNameToUse} style={{display: 'flex',  position:'absolute', top:0, left:0, alignItems:'center', justifyContent:'center',  height:'100vh', width:'100%'}}>
+                               <CircularProgress size={250} />
+                           </div>
 
                        </Grid>
-                       {/*<Grid item xs={12}>*/}
-                           {/*{this._renderIcons()}*/}
-                       {/*</Grid>*/}
-
+                       <Grid item xs={1}></Grid>
                    </Grid>
                    <Typography variant={"caption"}>{this.props.status}{this.renderPlayerInfo(this.props.player)}</Typography>
 

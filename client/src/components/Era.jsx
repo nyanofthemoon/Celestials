@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
-import { Typography, Card, CardContent, CardHeader } from '@material-ui/core'
+import { Typography, Grid, Paper } from '@material-ui/core'
 import * as Icons from './Icons'
+
+
 
 class Era extends Component {
     constructor(props) {
         super(props);
 
     }
+
 
     state = {
         status: '',
@@ -27,15 +30,65 @@ class Era extends Component {
         }
     };
 
-    _closeEraCard = () => (
-        <Card>
-            <CardContent>
-                <Typography variant="h5" component="h2" gutterBottom>
+    _renderCloseEra = (era, start) => (
+        <Grid container >
+            <Grid item xs={9}>
                     ERA
-                </Typography>
+            </Grid>
+            <Grid item xs={3}>
+                    {era}
+            </Grid>
+            <Grid item xs={3}>
+                    Start in:
+            </Grid>
+            <Grid item xs={9}>
+                    {start}
+            </Grid>
+        </Grid>
+        );
 
-            </CardContent>
-        </Card>);
+
+    _renderOpenEra = (era,name, end) => (
+        <Grid container >
+            <Grid item xs={9}>
+                    ERA
+            </Grid>
+            <Grid item xs={3}>
+                    {era}
+            </Grid>
+            <Grid item xs={12}>
+                    {name}
+            </Grid>
+            <Grid item xs={3}>
+                    End in:
+            </Grid>
+            <Grid item xs={9}>
+                    {end}
+            </Grid>
+        </Grid>
+    );
+
+    _renderGeneration = (generation,name, end) => (
+        <Grid container >
+            <Grid item xs={9}>
+                    GENERATION
+            </Grid>
+            <Grid item xs={3}>
+                    {generation}/30
+            </Grid>
+            <Grid item xs={12}>
+                    {name}
+            </Grid>
+            <Grid item xs={3}>
+                    End in:
+           </Grid>
+           <Grid item xs={9}>
+                    {end}
+           </Grid>
+        </Grid>
+
+    );
+
 
     _renderEraStore = () => {
 
@@ -49,31 +102,39 @@ class Era extends Component {
         });
 
         console.log('mappedEraData');
-        console.log(mappedEraData);
+        console.log(mappedEraData.toString());
+
+        const dateEnd = new Date(eraData.get('next'));
+        const timeLeft = (new Date() ) - ( dateEnd  );
+        const timeLeftInHours = timeLeft / 1000 / 60 / 60 ;
+        const timeLeftInDays = ( timeLeftInHours / 24);
+
+        const timeLeftInDaysFix = timeLeftInDays.toFixed(0) ;
+        const timeLeftInTheDay = timeLeftInDays - timeLeftInDaysFix;
+        // const eraTimeLeftHours = ( (  timeLeftInHours / 24) - eraTimeLeftDay ) * 24).toFixed(0) ;
+        // const eraTimeLeftMin = ((((  timeLeft ) / 1000 / 60 / 60 / 24) - eraTimeLeftHours ) * 60).toFixed(0) ;
+
+        const timeIn = (  (new Date() ) - ( new Date(eraData.get('last')) ) ) / 1000 / 60 / 60 / 24 ;
+        console.log( timeLeftInDaysFix );
+        console.log( timeLeftInTheDay * 24);
+        // console.log( eraTimeLeftHours );
+        // console.log( eraTimeLeftMin );
 
         const genData = this.props.era.get('generation');
+        //return
+
         if (eraData.get('status') === 'CLOSED') {
-            return eraData.toString()
+            return this._renderCloseEra(1, "bob")
         } else if (!genData) {
             return null
         } else {
-            return eraData.toString() + ';' + genData.toString()
+            return (
+                <Paper>
+                    {eraData.toString() + ';' + genData.toString()}
+                </Paper>
+            )
         }
 
-
-
-
-        //const eraStore = this.props.era ? this.props.era.map((item, i) => {
-        //    <div key={i}>{item}</div>
-        //}) : null;
-
-        //return (eraStore);
-
-        /*if (eraStore) {
-            return (eraStore);
-        } else {
-            return ('Era component');
-        }*/
     };
 
     componentWillMount() {
@@ -87,7 +148,6 @@ class Era extends Component {
     componentDidMount() {
         // console.log("era did mount...");
         // console.log(this.props.era)
-
 
 
     }
@@ -108,7 +168,7 @@ class Era extends Component {
 
     render() {
 
-        console.log(this.props.era.toString());
+        //console.log(this.props.era.toString());
 
         // Calculate elapsed to tenth of a second:
         let elapsed = Math.round(this.state.elapsed / 100);
@@ -122,12 +182,24 @@ class Era extends Component {
 
         return (
             <div>
-                <br/>
-                <Typography variant={"caption"}>{this._renderEraState()}</Typography>
-                <br/>
 
                 {/*<p>This example was started <b>{seconds} seconds</b> ago.</p>;*/}
+                <br/>
 
+                <Paper>
+                    {this._renderCloseEra(1, 23)}
+                </Paper>
+
+                <br/>
+
+                <Paper>
+                    {this._renderOpenEra(1, "Era One", 34)}
+                </Paper>
+                <br/>
+
+                <Paper>
+                    {this._renderGeneration(1, "Generation One", 3)}
+                </Paper>
                 {this._renderEraStore()}
 
 

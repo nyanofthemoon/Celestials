@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography, Grid } from '@material-ui/core'
 
 import JoinFormDialog from '../../components/forms/JoinFormDialog';
 import PlayFormDialog from '../../components/forms/PlayFormDialog';
@@ -22,11 +22,7 @@ class HomeScreen extends Component {
     };
 
     componentDidMount() {
-        // dispatch request for era info
         this.props.handleRequestForEraInformation();
-        // pass down to Era component
-        console.log('Home - props');
-        console.log(this.props);
     }
 
     togglePlayFormDialog = () => {
@@ -71,14 +67,10 @@ class HomeScreen extends Component {
     render() {
         return (
             <div>
-                <Typography variant='h5' gutterBottom>
-                    Celestials
-                </Typography>
 
                 <img src="https://fpoimg.com/300x300?text=Celestials Logo" />
                 <br />
-                <Button variant="contained" color="secondary" onClick={this.toggleJoinFormDialog}>join</Button>
-                <span>or</span>
+                <Button variant="contained" onClick={this.toggleJoinFormDialog}>join</Button>
                 <Button variant="contained" color="primary" onClick={this.togglePlayFormDialog}>play</Button>
 
                 <JoinFormDialog
@@ -98,6 +90,7 @@ class HomeScreen extends Component {
                 </PlayFormDialog>
 
                 <Era era={this.props.era}
+                     start={Date.now()}
 
 
 

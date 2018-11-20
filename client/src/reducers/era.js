@@ -5,6 +5,7 @@ import * as types from './../constants/ActionTypes'
 
 const initialState = fromJS({
     data: null,
+    generation: null,
 
 });
 

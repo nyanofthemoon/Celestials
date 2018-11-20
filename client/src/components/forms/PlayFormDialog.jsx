@@ -146,10 +146,10 @@ class PlayFormDialog extends Component {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="outlined" onClick={this._handleFormCancel} color="secondary">
+                        <Button variant="outlined" onClick={this._handleFormCancel}>
                             Cancel
                         </Button>
-                        <Button variant="outlined" onClick={this._handleFormSubmit} color="primary">
+                        <Button variant="outlined" onClick={this._handleFormSubmit} color="secondary">
                             Log in
                         </Button>
                     </DialogActions>

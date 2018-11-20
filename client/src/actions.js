@@ -135,7 +135,7 @@ export function requestAuthentication(username, password, callback) {
   }
 }
 
-export function requestEraInformation() {
+export function requestEraInformation(callback) {
     return async (dispatch, getState) => {
         dispatch(startLoading());
         let payload = {

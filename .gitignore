@@ -1,7 +1,7 @@
 .env
 .idea
 .sass-cache
-client/public/js/*
+client/public/assets/js/bundle*
 dump.rdb
 node_modules
 package-lock.json

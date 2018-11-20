@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "dotenv eslint --fix ./server ./client",
-    "webpack-dev-server": "dotenv webpack-dev-server --config webpack.config.dev.js --hot --inline --open --history-api-fallback --compress --no-info --https --public",
+    "webpack-dev-server": "webpack-dev-server --config webpack.config.dev.js --hot --inline --open --history-api-fallback --compress --no-info --https --public",
     "mock-services": "nodemon -x node -r dotenv/config --watch server server/launcher.js",
-    "dev": "cp -p ./dev.env ./.env && npm run mock-services & npm run webpack-dev-server",
+    "dev": "cp -p ./dev.env ./.env && npm run webpack-dev-server & npm run mock-services",
     "dist": "cp -p ./prod.env ./.env && dotenv webpack --config webpack.config.prod.js",
     "service-webserver": "dotenv node --harmony server/launcher.js --service webserver --nomock",
     "service-auth": "dotenv node --harmony server/launcher.js --service auth --nomock",
@@ -53,7 +53,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {

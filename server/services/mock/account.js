@@ -7,10 +7,9 @@ const rjwt = require('restify-jwt-community');
 const validator = require('restify-joi-middleware');
 const corsMiddleware = require('restify-cors-middleware');
 
-const Logger = require('./../../logger');
 const CONFIG = require('./../../config');
-const logger = new Logger('SERVICE Account (Mock)', CONFIG);
-const validation = require('./../../validation').validate;
+const logger = new CONFIG.environment.logger('SERVICE Account (Mock)', CONFIG)
+const validation = require('./../../validation').validate
 
 const server = restify.createServer(CONFIG.service.account.options);
 const cors = corsMiddleware(CONFIG.cors);

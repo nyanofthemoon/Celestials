@@ -1,7 +1,7 @@
 'use strict'
 
-let util  = require('util')
-let chalk = require('chalk')
+const util  = require('util')
+const chalk = require('chalk')
 
 class Logger {
 
@@ -11,11 +11,7 @@ class Logger {
         }
 
         this.namespace = namespace
-        if (config && config.environment.verbose) {
-            this.debug = true
-        } else {
-            this.debug = false
-        }
+        this.debug = config.environment.isVerbose
     }
 
     _log(color, message) {

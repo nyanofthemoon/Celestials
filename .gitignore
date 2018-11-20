@@ -1,3 +1,4 @@
+.env
 .idea
 .sass-cache
 client/public/js/*

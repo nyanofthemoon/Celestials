@@ -1,12 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+//const autoprefixer = require('autoprefixer');
 
 module.exports = {
   mode: 'development',
   entry: [
     'webpack-dev-server/client?http://localhost:9000',
     'webpack/hot/only-dev-server',
-    __dirname + '/client/src/index.jsx'
+     path.resolve(__dirname + '/client/src/index.jsx')
   ],
   output: {
       path: path.resolve(__dirname, 'client/public/js'),
@@ -15,13 +16,15 @@ module.exports = {
   },
   module: {
       rules: [
-        //{
-        //  enforce: 'pre',
-        //  test: /\.(js|jsx)?$/,
-        //  exclude: /node_modules/,
-        //  use: ['eslint-loader']
-        //},
-        { test: /\.(js|jsx)?$/,
+        /*
+        {
+          enforce: 'pre',
+          test: /\.(js|jsx)?$/,
+          exclude: /node_modules/,
+          use: ['eslint-loader']
+        },*/
+        {
+          test: /\.(js|jsx)?$/,
           exclude: /node_modules/,
           use: ['babel-loader']
         },
@@ -32,7 +35,6 @@ module.exports = {
         }
       ]
   },
-  devtool: 'cheap-eval-sourcemaps',
   devServer: {
         port: 9000,
         contentBase: 'client/public',
@@ -50,16 +52,15 @@ module.exports = {
             'Access-Control-Allow-Headers': '*'
         }
   },
+  //postcss: () => {
+  //  return [ autoprefixer({ browsers: ['last 3 versions'] }) ]
+  //},
+  devtool: 'inline-source-map',
   resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-          joi: 'joi-browser' }
+          joi: 'joi-browser'
+      }
   },
-  plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-           NODE_ENV: JSON.stringify('development')
-         }
-      })
-  ]
+  plugins: []
 };

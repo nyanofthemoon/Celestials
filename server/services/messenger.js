@@ -4,9 +4,8 @@ const restify = require('restify')
 const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
 
-const Logger = require('./../logger')
 const CONFIG = require('./../config')
-const logger  = new Logger('SERVICE Messenger', CONFIG)
+const logger = new CONFIG.environment.logger('SERVICE Messenger', CONFIG)
 const validation = require('./../validation').validate
 
 const server = restify.createServer(CONFIG.service.messenger.options);

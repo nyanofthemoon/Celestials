@@ -1,14 +1,15 @@
 'use strict'
 
 const CONFIG = require('./config')
+const SERVER_CONFIG = require('./server/config')
 
 const express = require('express')
 const https = require('https');
 const fs = require('fs');
 
-const logger = new (require('./../server/logger'))('SERVICE Webserver', CONFIG)
+const logger = new SERVER_CONFIG.environment.logger('SERVICE Webserver', SERVER_CONFIG)
 
-let options = {
+const options = {
     dotfiles  : 'ignore',
     etag      : false,
     extensions: ['htm', 'html'],

@@ -57,14 +57,6 @@ const glassGeneration = (workers, tax, productivity, deserts) => {
   return Math.floor((workers/10) * (tax/100) * productivity * (1*deserts))
 }
 
-const corsOrigins = () => {
- if (process.env.NODE_ENV != 'development') {
-   return process.env.CORS_ORIGINS || []
- }
- return ['*']
-}
-const CORS_ORIGINS = corsOrigins()
-
 const CAPITAL_STARTERS = [
   {'desert': 0, 'field': 1, 'forest': 2, 'lake': 0, 'mountain': 2},
   {'desert': 1, 'field': 1, 'forest': 2, 'lake': 0, 'mountain': 0},
@@ -84,19 +76,21 @@ const COUNTY_STARTERS = [
 module.exports = {
 
     environment: {
-        name: process.env.NODE_ENV || 'development',
-        isDev: () => { return process.env.NODE_ENV === 'development' }
+      name: process.env.NODE_ENV,
+      isDev: process.env.ENV_IS_DEV,
+      isVerbose: process.env.ENV_IS_VERBOSE,
+      logger: require(`./loggers/${process.env.ENV_LOGGER}`)
     },
 
     cors: {
       preflightMaxAge: 5,
-      origins: CORS_ORIGINS,
+      origins: JSON.parse(process.env.CORS_ORIGINS),
       //allowHeaders: ['API-Token'],
       //exposeHeaders: ['API-Token-Expiry']
     },
 
     jwt: {
-        secret: Buffer.from((process.env.JWT_SECRET || 'qwerty'), 'base64'),
+        secret: Buffer.from(process.env.JWT_SECRET, 'base64'),
         credentialsRequired: true,
         requestProperty: 'auth',
         getToken: (req) => {
@@ -109,7 +103,7 @@ module.exports = {
 
     service: {
       auth: {
-        port: process.env.AUTH_SERVICE_PORT || 8000,
+        port: process.env.AUTH_SERVICE_PORT,
         options: {
           name: 'Celestials - Auth Service',
           formatters: { 'application/json': jsend },
@@ -119,7 +113,7 @@ module.exports = {
         }
       },
       account: {
-        port: process.env.ACCOUNT_SERVICE_PORT || 8100,
+        port: process.env.ACCOUNT_SERVICE_PORT,
         options: {
           name: 'Celestials - Account Service',
           formatters: { 'application/json': jsend },
@@ -129,7 +123,7 @@ module.exports = {
         }
       },
       era: {
-        port: process.env.ERA_SERVICE_PORT || 8200,
+        port: process.env.ERA_SERVICE_PORT,
         generationLength: 86000,
         lengthInGenerations: 30,
         options: {
@@ -141,7 +135,7 @@ module.exports = {
         }
       },
       market: {
-        port: process.env.MARKET_SERVICE_PORT || 8300,
+        port: process.env.MARKET_SERVICE_PORT,
         options: {
           name: 'Celestials - Market Service',
           formatters: { 'application/json': jsend },
@@ -151,7 +145,7 @@ module.exports = {
         }
       },
       messenger: {
-        port: process.env.MESSENGER_SERVICE_PORT || 8400,
+        port: process.env.MESSENGER_SERVICE_PORT,
         options: {
           name: 'Celestials - Messenger Service',
           formatters: { 'application/json': jsend },
@@ -161,7 +155,7 @@ module.exports = {
         }
       },
       politics: {
-        port: process.env.POLITICS_SERVICE_PORT || 8500,
+        port: process.env.POLITICS_SERVICE_PORT,
         options: {
           name: 'Celestials - Politics Service',
           formatters: { 'application/json': jsend },
@@ -171,7 +165,7 @@ module.exports = {
         }
       },
       realm: {
-        port: process.env.REALM_SERVICE_PORT || 8600,
+        port: process.env.REALM_SERVICE_PORT,
         options: {
           name: 'Celestials - Realm Service',
           formatters: { 'application/json': jsend },
@@ -202,7 +196,7 @@ module.exports = {
         },
       },
       roguery: {
-        port: process.env.ROGUERY_SERVICE_PORT || 8700,
+        port: process.env.ROGUERY_SERVICE_PORT,
         options: {
           name: 'Celestials - Roguery Service',
           formatters: { 'application/json': jsend },
@@ -212,7 +206,7 @@ module.exports = {
         }
       },
       sorcery: {
-        port: process.env.SORCERY_SERVICE_PORT || 8800,
+        port: process.env.SORCERY_SERVICE_PORT,
         options: {
           name: 'Celestials - Sorcery Service',
           formatters: { 'application/json': jsend },
@@ -222,7 +216,7 @@ module.exports = {
         }
       },
       warfare: {
-        port: process.env.WARFARE_SERVICE_PORT || 8900,
+        port: process.env.WARFARE_SERVICE_PORT,
         options: {
           name: 'Celestials - Warfare Service',
           formatters: { 'application/json': jsend },
@@ -232,7 +226,7 @@ module.exports = {
         }
       },
       webserver: {
-        port: process.env.WEBSERVER_SERVICE_PORT || 9000,
+        port: process.env.WEBSERVER_SERVICE_PORT,
         options: {
           name: 'Celestials - Web Service',
           formatters: { 'application/json': jsend },
@@ -246,12 +240,12 @@ module.exports = {
     store: {
       // See https://www.npmjs.com/package/redis
       redis: {
-          url: process.env.REDIS_URL || 'redis://127.0.0.1:6379',
+          url: process.env.REDIS_URL,
           options: {}
       },
       // See https://www.npmjs.com/package/hazelcast-client
       hazelcast: {
-          url: process.env.HAZELCAST_URL || 'hazelcast://127.0.0.1:7337',
+          url: process.env.HAZELCAST_URL,
           options: {}
       }
     },

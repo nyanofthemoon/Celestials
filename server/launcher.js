@@ -1,12 +1,9 @@
 'use strict'
 
-let Logger = require('./logger')
 const CONFIG = require('./config')
-
-const logger  = new Logger('LAUNCHER', CONFIG)
-
 const args = require('yargs').argv
 
+const logger = new CONFIG.environment.logger('LAUNCHER', CONFIG)
 const serviceName = args.service || 'all'
 const serviceIsMock = args.nomock ?  false : true
 
@@ -15,7 +12,7 @@ try {
     if (serviceName != 'all') {
       serviceIds.push(serviceName)
     } else {
-      if (!CONFIG.environment.isDev()) {
+      if (!CONFIG.environment.isDev) {
         serviceIds.push('webserver')
       }
       serviceIds.push('auth')

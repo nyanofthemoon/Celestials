@@ -1,18 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
-
-console.log(path.resolve(__dirname, 'client/public/js'));
+//const autoprefixer = require('autoprefixer');
 
 module.exports = {
   mode: 'production',
-  entry: __dirname + '/client/src/index.jsx',
+  entry: path.resolve(__dirname, 'client/src/index.jsx'),
   output: {
-      path: path.resolve(__dirname, 'client/public/js'),
+      path: path.resolve(__dirname, 'client/public/assets/js'),
       filename: 'bundle.js'
   },
   module: {
       rules: [
-        { test: /\.(js|jsx)?$/,
+        {
+          test: /\.(js|jsx)?$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader'
@@ -25,19 +25,11 @@ module.exports = {
         }
       ]
   },
-  devtool: 'source-map',
   resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-          joi: 'joi-browser' }
+          joi: 'joi-browser'
+      }
   },
-  plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-           NODE_ENV: JSON.stringify('production')
-         }
-      }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin()
-  ]
+  plugins: []
 };

@@ -3,9 +3,8 @@
 const fs = require('fs')
 const restify = require('restify');
 
-const Logger = require('./../../logger')
 const CONFIG = require('./../../config')
-const logger  = new Logger('SERVICE Webserver (Mock)', CONFIG)
+const logger = new CONFIG.environment.logger('SERVICE Webserver (Mock)', CONFIG)
 
 const server = restify.createServer({
   key: fs.readFileSync('./server.key'),

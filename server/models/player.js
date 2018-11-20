@@ -2,8 +2,8 @@
 
 let CryptoJS = require('crypto-js')
 
-let Logger   = require('./logger')
 const CONFIG = require('./../config')
+const Logger   = CONFIG.environment.logger
 
 class Player {
 

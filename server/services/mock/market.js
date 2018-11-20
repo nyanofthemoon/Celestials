@@ -7,9 +7,8 @@ const rjwt = require('restify-jwt-community')
 const validator = require('restify-joi-middleware')
 const corsMiddleware = require('restify-cors-middleware')
 
-const Logger = require('./../../logger')
 const CONFIG = require('./../../config')
-const logger = new Logger('SERVICE Market (Mock)', CONFIG)
+const logger = new CONFIG.environment.logger('SERVICE Market (Mock)', CONFIG)
 const validation = require('./../../validation').validate
 
 const server = restify.createServer(CONFIG.service.market.options)

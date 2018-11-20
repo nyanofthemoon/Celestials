@@ -8,9 +8,8 @@ const jwt = require('jsonwebtoken')
 const validator = require('restify-joi-middleware')
 const corsMiddleware = require('restify-cors-middleware')
 
-const Logger = require('./../logger')
 const CONFIG = require('./../config')
-const logger  = new Logger('SERVICE Auth', CONFIG)
+const logger = new CONFIG.environment.logger('SERVICE Auth', CONFIG)
 const validation = require('./../validation').validate
 
 const server = restify.createServer(CONFIG.service.auth.options)

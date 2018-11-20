@@ -2,10 +2,12 @@
 
 var sanitizer = require('sanitizer');
 
-let Logger        = require('./logger');
 let Player        = require('./player');
 let RedisClient   = require('./../db/redis-client');
 let Cycling       = require('./../workers/cycling');
+
+const CONFIG = require('./../config')
+const Logger   = CONFIG.environment.logger
 
 class World {
 
